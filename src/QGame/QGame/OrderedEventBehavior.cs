@@ -80,13 +80,5 @@ namespace QGame
                 OnEveryUpdate();
             }
         }
-
-        /// <summary>
-        /// Returns delta time, factoring in time modification
-        /// </summary>
-        protected float GetDelta()
-        {
-            return UseTimeModifier ? TimeModifier * Time.deltaTime : Time.deltaTime;
-        }
     }
 }
