@@ -1,17 +1,15 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Assets.Scripts;
 using QGame;
-using UnityEngine;
 
 public class WorldTask : QScript
 {
     public float TotalTime;
     public string DisplayName;
     private const string STOPWATCH_KEY = "t";
+    public TaskOutcome TaskOutcome;
 
-    public Action OnTaskComplete;
+    public Action<WorldTask> OnTaskComplete;
 
     public float CurrentCraftElapsedAsZeroToOne
     {
@@ -30,8 +28,7 @@ public class WorldTask : QScript
 
     public void OnComplete()
     {
-        if (OnTaskComplete != null)
-            OnTaskComplete();
+        OnTaskComplete?.Invoke(this);
     }
 
     public void StartTimer()

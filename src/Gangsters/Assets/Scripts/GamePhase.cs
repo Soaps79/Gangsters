@@ -11,8 +11,12 @@ public class GamePhase : QScript
     public float TotalTime;
     private const string STOPWATCH_KEY = "phasetimer";
     public GamePhaseViewModel ViewModel;
+    
     public List<WorldTask> WorldTasks;
+    private WorldTask _currentWorldTask;
     private readonly Queue<WorldTask> _worldTaskQueue = new Queue<WorldTask>();
+
+    public TaskOutcome TaskOutcome;
 
     public float CurrentCraftElapsedAsZeroToOne
     {
@@ -34,22 +38,27 @@ public class GamePhase : QScript
         ViewModel.Initialize(this);
     }
 
-    private void TryStartNextWorldTask()
-    {
-        var worldTask = _worldTaskQueue.Dequeue();
-        worldTask.OnTaskComplete += OnTaskComplete;
-        worldTask.StartTimer();
-    }
-
-    private void OnTaskComplete()
-    {
-        if (_worldTaskQueue.Any())
-            TryStartNextWorldTask();
-    }
-
     public void StartTimer()
     {
         StopWatch.AddNode(STOPWATCH_KEY, TotalTime, true);
+        TryStartNextWorldTask();
+    }
+
+    private void TryStartNextWorldTask()
+    {
+        if (_worldTaskQueue.Any())
+        {
+            _currentWorldTask = _worldTaskQueue.Dequeue();
+            _currentWorldTask.OnTaskComplete += OnTaskComplete;
+            _currentWorldTask.StartTimer();
+        }
+    }
+
+    private void OnTaskComplete(WorldTask worldTask)
+    {
+        if(worldTask.TaskOutcome != null)
+            TaskOutcome.Add(worldTask.TaskOutcome);
+        
         TryStartNextWorldTask();
     }
 }

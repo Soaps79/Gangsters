@@ -505,6 +505,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalTime: 2
   DisplayName: Collecting Protection
+  TaskOutcome:
+    MoneyReward: 40
 --- !u!224 &781148707
 RectTransform:
   m_ObjectHideFlags: 0
@@ -555,6 +557,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalTime: 2.5
   DisplayName: Collecting Protection
+  TaskOutcome:
+    MoneyReward: 50
 --- !u!224 &872597085
 RectTransform:
   m_ObjectHideFlags: 0
@@ -605,6 +609,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalTime: 0.75
   DisplayName: Collecting Protection
+  TaskOutcome:
+    MoneyReward: 15
 --- !u!224 &957055062
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1267,6 +1273,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalTime: 1.5
   DisplayName: Collecting Protection
+  TaskOutcome:
+    MoneyReward: 30
 --- !u!224 &1865546017
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1425,6 +1433,8 @@ MonoBehaviour:
   - {fileID: 781148706}
   - {fileID: 872597084}
   - {fileID: 957055061}
+  TaskOutcome:
+    MoneyReward: 0
 --- !u!224 &1914392784
 RectTransform:
   m_ObjectHideFlags: 0
