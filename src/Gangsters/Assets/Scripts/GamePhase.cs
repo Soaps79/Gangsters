@@ -24,7 +24,6 @@ public class GamePhase : QScript
     // Start is called before the first frame update
     void Start()
     {
-        StopWatch.AddNode(STOPWATCH_KEY, TotalTime, true).OnTick = OnComplete;  
         SliderBinding.Initialize(() => CurrentCraftElapsedAsZeroToOne);
     }
 

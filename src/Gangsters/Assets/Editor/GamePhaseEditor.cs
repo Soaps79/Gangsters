@@ -12,7 +12,7 @@ public class GamePhaseEditor : Editor
 
         GamePhase myTarget = (GamePhase)target;
 
-        if (GUILayout.Button("Test Button"))
+        if (GUILayout.Button("Start Phase"))
         {
             myTarget.StartTimer();
         }
