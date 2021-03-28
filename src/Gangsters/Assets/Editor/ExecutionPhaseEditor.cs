@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
 [CustomEditor(typeof(ExecutionPhase))]
-public class GamePhaseEditor : Editor
+public class ExecutionPhaseEditor : Editor
 {
     public override void OnInspectorGUI()
     {

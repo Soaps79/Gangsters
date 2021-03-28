@@ -1159,7 +1159,7 @@ MonoBehaviour:
   - TotalTime: 2.5
     DisplayName: Intimidate a Guy
   WorldTaskPrefab: {fileID: 5942334272710168378, guid: 516d40b34654ecb4e976bad379102af5, type: 3}
-  UseTestData: 1
+  UseTestData: 0
   TaskOutcome:
     MoneyReward: 0
     GainedProperties: []

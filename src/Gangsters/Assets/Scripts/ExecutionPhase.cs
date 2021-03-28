@@ -40,6 +40,15 @@ public class ExecutionPhase : QScript
             }
         }
 
+        var startData = ServiceLocator.Get<ExecutionStartData>();
+        if (startData != null)
+        {
+            foreach (var taskData in startData.WorldTasks)
+            {
+                CreateWorldTask(taskData);
+            }
+        }
+
         ViewModel.Initialize(this);
     }
 
