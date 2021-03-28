@@ -8,10 +8,14 @@ public class ExecutionPhase : QScript
     public float TotalTime;
     private const string STOPWATCH_KEY = "phasetimer";
     public ExecutionPhaseViewModel ViewModel;
-    
+
     public List<WorldTask> WorldTasks;
     private WorldTask _currentWorldTask;
     private readonly Queue<WorldTask> _worldTaskQueue = new Queue<WorldTask>();
+
+    public List<WorldTaskData> TestData;
+    public WorldTask WorldTaskPrefab;
+    public bool UseTestData;
 
     public TaskOutcome TaskOutcome;
 
@@ -28,11 +32,24 @@ public class ExecutionPhase : QScript
     // Start is called before the first frame update
     void Start()
     {
-        foreach (var worldTask in WorldTasks)
+        if (UseTestData)
         {
-            _worldTaskQueue.Enqueue(worldTask);
+            foreach (var taskData in TestData)
+            {
+                CreateWorldTask(taskData);
+            }
         }
+
         ViewModel.Initialize(this);
+    }
+
+    private void CreateWorldTask(WorldTaskData taskData)
+    {
+        var task = Instantiate<WorldTask>(WorldTaskPrefab, transform);
+        task.DisplayName = taskData.DisplayName;
+        task.TotalTime = taskData.TotalTime;
+        WorldTasks.Add(task);
+        _worldTaskQueue.Enqueue(task);
     }
 
     public void StartTimer()

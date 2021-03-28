@@ -1,6 +1,14 @@
 using System;
 using Assets.Scripts;
 using QGame;
+using UnityEngine;
+
+[Serializable]
+public class WorldTaskData
+{
+    public float TotalTime;
+    public string DisplayName;
+}
 
 public class WorldTask : QScript
 {
@@ -9,16 +17,27 @@ public class WorldTask : QScript
     private const string STOPWATCH_KEY = "t";
     public TaskOutcome TaskOutcome;
 
+    public bool IsComplete;
+
     public Action<WorldTask> OnTaskComplete;
 
     public float CurrentCraftElapsedAsZeroToOne
     {
         get
         {
-            var returnVal = StopWatch.IsRunning()
+            if (IsComplete) return 1f;
+            return StopWatch.IsRunning()
                 ? StopWatch[STOPWATCH_KEY].ElapsedLifetimeAsZeroToOne : 0f;
-            return returnVal;
         }
+    }
+
+    public void Initialize(WorldTaskData data)
+    {
+        if (data == null)
+            throw new UnityException();
+
+        TotalTime = data.TotalTime;
+        DisplayName = data.DisplayName;
     }
 
     // Start is called before the first frame update
@@ -29,6 +48,7 @@ public class WorldTask : QScript
     public void OnComplete()
     {
         OnTaskComplete?.Invoke(this);
+        IsComplete = true;
     }
 
     public void StartTimer()
