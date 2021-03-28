@@ -4,20 +4,19 @@ using UnityEngine.Serialization;
 
 namespace Assets.Scripts
 {
-    public class GamePhaseViewModel : QScript
+    public class ExecutionPhaseViewModel : QScript
     {
         public SliderBinding MainSlider;
         [FormerlySerializedAs("TaskListRectRectTransform")]
         public RectTransform TaskListRectTransform;
         public GameObject WorldTaskPrefab;
-        public Canvas Canvas;
-        private GamePhase _gamePhase;
+        private ExecutionPhase _executionPhase;
 
-        public void Initialize(GamePhase gamePhase)
+        public void Initialize(ExecutionPhase executionPhase)
         {
-            _gamePhase = gamePhase;
-            MainSlider.Initialize(() => _gamePhase.CurrentCraftElapsedAsZeroToOne);
-            foreach (var worldTask in _gamePhase.WorldTasks)
+            _executionPhase = executionPhase;
+            MainSlider.Initialize(() => _executionPhase.CurrentCraftElapsedAsZeroToOne);
+            foreach (var worldTask in _executionPhase.WorldTasks)
             {
                 
                 var go = Instantiate(WorldTaskPrefab, TaskListRectTransform.transform, false);

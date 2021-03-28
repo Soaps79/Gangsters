@@ -10,7 +10,7 @@ namespace Assets.Scripts
         public SliderBinding SliderBinding;
         public TMP_Text NameText;
 
-        public WorldTask _worldTask;
+        private WorldTask _worldTask;
 
         public void Initialize(WorldTask worldTask)
         {

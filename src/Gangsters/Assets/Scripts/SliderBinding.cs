@@ -9,12 +9,12 @@ namespace Assets.Scripts
     public class SliderBinding : QScript
     {
         private Func<float> _func;
-        public Slider _slider;
+        private Slider _slider;
 
         public void Initialize(Func<float> func)
         {
             _func = func;
-            //_slider = GetComponent<Slider>();
+            _slider = GetComponent<Slider>();
 
             if (_func == null || _slider == null)
                 throw new UnityException("SliderBinding initialized with bad things");

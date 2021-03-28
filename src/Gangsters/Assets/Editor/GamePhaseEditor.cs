@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(GamePhase))]
+[CustomEditor(typeof(ExecutionPhase))]
 public class GamePhaseEditor : Editor
 {
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
 
-        GamePhase myTarget = (GamePhase)target;
+        ExecutionPhase myTarget = (ExecutionPhase)target;
 
         if (GUILayout.Button("Start Phase"))
         {

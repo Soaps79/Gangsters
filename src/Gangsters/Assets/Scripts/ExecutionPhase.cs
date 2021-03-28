@@ -1,16 +1,13 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts;
-using UnityEngine;
 using QGame;
-using UnityEngine.UI;
 
-public class GamePhase : QScript
+public class ExecutionPhase : QScript
 {
     public float TotalTime;
     private const string STOPWATCH_KEY = "phasetimer";
-    public GamePhaseViewModel ViewModel;
+    public ExecutionPhaseViewModel ViewModel;
     
     public List<WorldTask> WorldTasks;
     private WorldTask _currentWorldTask;
