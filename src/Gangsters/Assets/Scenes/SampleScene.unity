@@ -507,6 +507,7 @@ MonoBehaviour:
   DisplayName: Collecting Protection
   TaskOutcome:
     MoneyReward: 40
+    GainedProperties: []
 --- !u!224 &781148707
 RectTransform:
   m_ObjectHideFlags: 0
@@ -559,6 +560,7 @@ MonoBehaviour:
   DisplayName: Collecting Protection
   TaskOutcome:
     MoneyReward: 50
+    GainedProperties: []
 --- !u!224 &872597085
 RectTransform:
   m_ObjectHideFlags: 0
@@ -611,6 +613,7 @@ MonoBehaviour:
   DisplayName: Collecting Protection
   TaskOutcome:
     MoneyReward: 15
+    GainedProperties: []
 --- !u!224 &957055062
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1275,6 +1278,9 @@ MonoBehaviour:
   DisplayName: Collecting Protection
   TaskOutcome:
     MoneyReward: 30
+    GainedProperties:
+    - Name: 
+      ExtorionValue: 0
 --- !u!224 &1865546017
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1291,7 +1297,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 1.12, y: -1.63}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1872511217
@@ -1435,6 +1441,7 @@ MonoBehaviour:
   - {fileID: 957055061}
   TaskOutcome:
     MoneyReward: 0
+    GainedProperties: []
 --- !u!224 &1914392784
 RectTransform:
   m_ObjectHideFlags: 0
