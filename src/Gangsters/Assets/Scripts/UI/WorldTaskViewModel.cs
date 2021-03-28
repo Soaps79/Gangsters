@@ -1,7 +1,6 @@
 ﻿using QGame;
 using TMPro;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 namespace Assets.Scripts
 {
