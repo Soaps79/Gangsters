@@ -423,7 +423,7 @@ GameObject:
   - component: {fileID: 748412960}
   - component: {fileID: 748412959}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: TaskGroupPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -446,8 +446,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.011238682, y: 0.015833432}
   m_AnchorMax: {x: 0.3752387, y: 0.859}
-  m_AnchoredPosition: {x: 0.5500488, y: 0.8200073}
-  m_SizeDelta: {x: 0.89001465, y: 1.6600037}
+  m_AnchoredPosition: {x: 0.052490234, y: -0.005004883}
+  m_SizeDelta: {x: -0.10504, y: 0.0099792}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &748412959
 MonoBehaviour:
@@ -462,7 +462,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.105882354}
+  m_Color: {r: 0.89411765, g: 0.89411765, b: 0.84705883, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -541,7 +541,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MainSlider: {fileID: 637647524}
   TaskListRectTransform: {fileID: 1872511218}
-  WorldTaskPrefab: {fileID: 9045223081557236816, guid: 76d4f129ac6b23c469df8d70dc2e2923, type: 3}
+  TaskGroupPrefab: {fileID: 3187664358178198327, guid: 7f57acd8fd4936345bc6c48f00e44ad0, type: 3}
 --- !u!114 &977431464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1052,8 +1052,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 4.2469482}
-  m_SizeDelta: {x: 0, y: 8.589996}
+  m_AnchoredPosition: {x: 0.42001343, y: 0.47998047}
+  m_SizeDelta: {x: -9.22, y: -9.02}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1872511219
 MonoBehaviour:
@@ -1068,12 +1068,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
+    m_Left: 4
+    m_Right: 4
+    m_Top: 4
+    m_Bottom: 4
   m_ChildAlignment: 0
-  m_Spacing: 0
+  m_Spacing: 2
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
@@ -1094,7 +1094,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 0.5647059, g: 0.6431373, b: 0.59607846, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1150,16 +1150,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalTime: 7
   ViewModel: {fileID: 977431463}
-  WorldTasks: []
+  WorldTaskGroups: []
   TestData:
-  - TotalTime: 2.5
-    DisplayName: Collect Protection
-  - TotalTime: 2
-    DisplayName: Rob a thing
-  - TotalTime: 2.5
-    DisplayName: Intimidate a Guy
+  - CrewDisplayName: Crew One
+    WorldTasks:
+    - TotalTime: 2
+      DisplayName: first
+    - TotalTime: 4
+      DisplayName: second
+  - CrewDisplayName: Crew Two
+    WorldTasks:
+    - TotalTime: 3
+      DisplayName: first
+    - TotalTime: 3
+      DisplayName: second
+  UseTestData: 1
   WorldTaskPrefab: {fileID: 5942334272710168378, guid: 516d40b34654ecb4e976bad379102af5, type: 3}
-  UseTestData: 0
   TaskOutcome:
     MoneyReward: 0
     GainedProperties: []

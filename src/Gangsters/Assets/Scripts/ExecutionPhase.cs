@@ -9,13 +9,12 @@ public class ExecutionPhase : QScript
     private const string STOPWATCH_KEY = "phasetimer";
     public ExecutionPhaseViewModel ViewModel;
 
-    public List<WorldTask> WorldTasks;
+    public List<WorldTaskGroup> WorldTaskGroups;
     private WorldTask _currentWorldTask;
-    private readonly Queue<WorldTask> _worldTaskQueue = new Queue<WorldTask>();
 
-    public List<WorldTaskData> TestData;
-    public WorldTask WorldTaskPrefab;
+    public List<WorldTaskDataGroup> TestData;
     public bool UseTestData;
+    public WorldTask WorldTaskPrefab;
 
     public TaskOutcome TaskOutcome;
 
@@ -36,52 +35,47 @@ public class ExecutionPhase : QScript
         {
             foreach (var taskData in TestData)
             {
-                CreateWorldTask(taskData);
+                CreateWorldTaskGroup(taskData);
             }
         }
 
         var startData = ServiceLocator.Get<ExecutionStartData>();
         if (startData != null)
         {
-            foreach (var taskData in startData.WorldTasks)
+            foreach (var taskDataGroup in startData.WorldTasks)
             {
-                CreateWorldTask(taskData);
+                CreateWorldTaskGroup(taskDataGroup);
             }
         }
 
         ViewModel.Initialize(this);
     }
 
-    private void CreateWorldTask(WorldTaskData taskData)
+    private void CreateWorldTaskGroup(WorldTaskDataGroup taskDataGroup)
+    {
+        var group = new WorldTaskGroup {CrewDisplayName = taskDataGroup.CrewDisplayName};
+        foreach (var worldTaskData in taskDataGroup.WorldTasks)
+        {
+            var worldTask = CreateWorldTask(worldTaskData);
+            group.WorldTasks.Add(worldTask);
+        }
+        WorldTaskGroups.Add(group);
+    }
+
+    private WorldTask CreateWorldTask(WorldTaskData taskData)
     {
         var task = Instantiate<WorldTask>(WorldTaskPrefab, transform);
         task.DisplayName = taskData.DisplayName;
         task.TotalTime = taskData.TotalTime;
-        WorldTasks.Add(task);
-        _worldTaskQueue.Enqueue(task);
+        return task;
     }
 
     public void StartTimer()
     {
-        StopWatch.AddNode(STOPWATCH_KEY, TotalTime, true);
-        TryStartNextWorldTask();
-    }
-
-    private void TryStartNextWorldTask()
-    {
-        if (_worldTaskQueue.Any())
+        foreach (var worldTaskGroup in WorldTaskGroups)
         {
-            _currentWorldTask = _worldTaskQueue.Dequeue();
-            _currentWorldTask.OnTaskComplete += OnTaskComplete;
-            _currentWorldTask.StartTimer();
+            worldTaskGroup.StartTasks();
         }
-    }
-
-    private void OnTaskComplete(WorldTask worldTask)
-    {
-        if(worldTask.TaskOutcome != null)
-            TaskOutcome.Add(worldTask.TaskOutcome);
-        
-        TryStartNextWorldTask();
+        StopWatch.AddNode(STOPWATCH_KEY, TotalTime, true);
     }
 }

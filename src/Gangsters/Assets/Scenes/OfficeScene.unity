@@ -755,7 +755,7 @@ MonoBehaviour:
   - CrewName: Crew One
   - CrewName: Crew Two
   TestData: []
-  UseTestData: 0
+  UseTestData: 1
 --- !u!4 &2144102330
 Transform:
   m_ObjectHideFlags: 0

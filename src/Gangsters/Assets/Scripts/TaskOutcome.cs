@@ -6,7 +6,7 @@ namespace Assets.Scripts
     public class TaskOutcome
     {
         public int MoneyReward;
-        public List<WorldProperty> GainedProperties;
+        public List<WorldProperty> GainedProperties = new List<WorldProperty>();
 
         public void Add(TaskOutcome taskOutcome)
         {

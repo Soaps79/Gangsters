@@ -24,12 +24,27 @@ namespace Assets.Scripts
             {
                 var startData = new ExecutionStartData()
                 {
-                    WorldTasks = new List<WorldTaskData>
+                    WorldTasks = new List<WorldTaskDataGroup>
                     {
-                        new WorldTaskData { DisplayName = "Collection Protection", TotalTime = 2f },
-                        new WorldTaskData { DisplayName = "Collection Protection", TotalTime = 1.5f },
-                        new WorldTaskData { DisplayName = "Collection Protection", TotalTime = 1f },
-                        new WorldTaskData { DisplayName = "Collection Protection", TotalTime = 2f }
+                        new WorldTaskDataGroup()
+                        {
+                            CrewDisplayName = "Crew One",
+                            WorldTasks = new List<WorldTaskData>
+                            {
+                                new WorldTaskData { DisplayName = "Collection Protection", TotalTime = 2f },
+                                new WorldTaskData { DisplayName = "Collection Protection", TotalTime = 1.5f }
+                            }
+                        },
+                        new WorldTaskDataGroup()
+                        {
+                            CrewDisplayName = "Crew Two",
+                            WorldTasks = new List<WorldTaskData>
+                            {
+                                new WorldTaskData { DisplayName = "Collection Protection", TotalTime = 1f },
+                                new WorldTaskData { DisplayName = "Collection Protection", TotalTime = 2f }
+                            }
+                        }
+                        
                     }
                 };
                 ServiceLocator.Register<ExecutionStartData>(startData);
