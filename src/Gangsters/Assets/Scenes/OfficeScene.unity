@@ -756,6 +756,8 @@ MonoBehaviour:
   - CrewName: Crew Two
   TestData: []
   UseTestData: 1
+  so1: {fileID: 11400000, guid: fb066f1022517034abff77294b5264be, type: 2}
+  so2: {fileID: 11400000, guid: fb066f1022517034abff77294b5264be, type: 2}
 --- !u!4 &2144102330
 Transform:
   m_ObjectHideFlags: 0
