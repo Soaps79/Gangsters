@@ -8,6 +8,7 @@ public class WorldTaskData
 {
     public float TotalTime;
     public string DisplayName;
+    public int RewardMoney;
 }
 
 public class WorldTask : QScript
@@ -35,6 +36,10 @@ public class WorldTask : QScript
     {
         if (data == null)
             throw new UnityException();
+        TaskOutcome = new TaskOutcome
+        {
+            MoneyReward = data.RewardMoney
+        };
 
         TotalTime = data.TotalTime;
         DisplayName = data.DisplayName;

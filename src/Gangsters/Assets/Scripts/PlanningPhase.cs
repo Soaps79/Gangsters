@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using QGame;
-using UnityEditor;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts
@@ -9,13 +7,26 @@ namespace Assets.Scripts
     public class PlanningPhase : QScript
     {
         public PlanningPhaseViewModel ViewModelPrefab;
-        public List<Crew> Crews;
+        public List<Crew> TestCrews;
 
         public List<WorldTaskData> TestData;
         public bool UseTestData;
+        private GangManager _gangManager;
+        public int Money;
 
         public void Start()
         {
+            _gangManager = ServiceLocator.Get<GangManager>();
+            if (_gangManager == null)
+            {
+                _gangManager = new GangManager
+                {
+                    Crews = TestCrews
+                };
+                ServiceLocator.Register<GangManager>(_gangManager);
+            }
+
+            Money = _gangManager.Money;
             ViewModelPrefab.Initialize(this);
         }
 
@@ -32,8 +43,8 @@ namespace Assets.Scripts
                             CrewDisplayName = "Crew One",
                             WorldTasks = new List<WorldTaskData>
                             {
-                                new WorldTaskData { DisplayName = "Collection Protection", TotalTime = 2f },
-                                new WorldTaskData { DisplayName = "Collection Protection", TotalTime = 1.5f }
+                                new WorldTaskData { DisplayName = "Collection Protection", TotalTime = 2f, RewardMoney = 50},
+                                new WorldTaskData { DisplayName = "Collection Protection", TotalTime = 1.5f, RewardMoney = 35 }
                             }
                         },
                         new WorldTaskDataGroup()
@@ -41,8 +52,8 @@ namespace Assets.Scripts
                             CrewDisplayName = "Crew Two",
                             WorldTasks = new List<WorldTaskData>
                             {
-                                new WorldTaskData { DisplayName = "Collection Protection", TotalTime = 1f },
-                                new WorldTaskData { DisplayName = "Collection Protection", TotalTime = 2f }
+                                new WorldTaskData { DisplayName = "Collection Protection", TotalTime = 1f, RewardMoney = 20 },
+                                new WorldTaskData { DisplayName = "Collection Protection", TotalTime = 2f, RewardMoney = 50 }
                             }
                         }
                         

@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts;
 using QGame;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ExecutionPhase : QScript
 {
@@ -17,6 +19,9 @@ public class ExecutionPhase : QScript
     public WorldTask WorldTaskPrefab;
 
     public TaskOutcome TaskOutcome;
+
+    public Canvas MainCanvas;
+    public ResultsViewModel ResultsPrefab;
 
     public float CurrentCraftElapsedAsZeroToOne
     {
@@ -65,6 +70,7 @@ public class ExecutionPhase : QScript
     private WorldTask CreateWorldTask(WorldTaskData taskData)
     {
         var task = Instantiate<WorldTask>(WorldTaskPrefab, transform);
+        task.Initialize(taskData);
         task.DisplayName = taskData.DisplayName;
         task.TotalTime = taskData.TotalTime;
         return task;
@@ -76,6 +82,28 @@ public class ExecutionPhase : QScript
         {
             worldTaskGroup.StartTasks();
         }
-        StopWatch.AddNode(STOPWATCH_KEY, TotalTime, true);
+
+        StopWatch.AddNode(STOPWATCH_KEY, TotalTime, true).OnTick += OnTimeComplete;
+    }
+
+    private void OnTimeComplete()
+    {
+        foreach (var taskGroup in WorldTaskGroups)
+        {
+            foreach (var worldTask in taskGroup.WorldTasks)
+            {
+                TaskOutcome.Add(worldTask.TaskOutcome);
+            }
+        }
+        var resultsViewModel = Instantiate<ResultsViewModel>(ResultsPrefab, MainCanvas.transform, false);
+        resultsViewModel.Initialize(this);
+        var gangManager = ServiceLocator.Get<GangManager>();
+        if (gangManager != null)
+            gangManager.Money += TaskOutcome.MoneyReward;
+    }
+
+    public void CompleteScene()
+    {
+        SceneManager.LoadScene("OfficeScene", LoadSceneMode.Single);
     }
 }

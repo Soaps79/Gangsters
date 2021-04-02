@@ -1169,6 +1169,8 @@ MonoBehaviour:
   TaskOutcome:
     MoneyReward: 0
     GainedProperties: []
+  MainCanvas: {fileID: 1677862314}
+  ResultsPrefab: {fileID: 4694695971474284732, guid: e24ec1db93c88ba4a9763b039142c3df, type: 3}
 --- !u!224 &1914392784
 RectTransform:
   m_ObjectHideFlags: 0
