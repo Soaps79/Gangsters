@@ -92,6 +92,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WorldTaskPrefab: {fileID: 4922688765798103076, guid: 76d4f129ac6b23c469df8d70dc2e2923, type: 3}
   TaskListTransform: {fileID: 3187664358648786284}
+  GroupDisplayNameText: {fileID: 3187664359016193507}
 --- !u!1 &3187664358451334036
 GameObject:
   m_ObjectHideFlags: 0

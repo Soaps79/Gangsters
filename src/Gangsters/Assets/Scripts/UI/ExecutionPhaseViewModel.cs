@@ -18,10 +18,10 @@ namespace Assets.Scripts
         {
             _executionPhase = executionPhase;
             MainSlider.Initialize(() => _executionPhase.CurrentCraftElapsedAsZeroToOne);
-            foreach (var worldTask in _executionPhase.WorldTaskGroups)
+            foreach (var taskGroup in _executionPhase.ExecutionTaskGroups)
             {
                 var viewModel = Instantiate<TaskGroupViewModel>(TaskGroupPrefab, TaskListRectTransform.transform, false);
-                viewModel.Initialize(worldTask);
+                viewModel.Initialize(taskGroup);
             }
         }
     }

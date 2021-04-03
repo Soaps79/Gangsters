@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using QGame;
 using UnityEngine.SceneManagement;
 
@@ -16,7 +17,7 @@ namespace Assets.Scripts
         public List<PlanningTask> PlanningTasks = new List<PlanningTask>();
         private readonly List<WorldTaskData> _availableWorldTasks = new List<WorldTaskData>();
         public int Money;
-
+        
         public void Start()
         {
             CheckForTestData();
@@ -32,19 +33,19 @@ namespace Assets.Scripts
             {
                 _availableWorldTasks.AddRange(new[]
                 {
-                    new WorldTaskData {DisplayName = "Collect Protection", TotalTime = 2f, RewardMoney = 50},
-                    new WorldTaskData {DisplayName = "Collect Protection", TotalTime = 1.5f, RewardMoney = 35},
-                    new WorldTaskData {DisplayName = "Collect Protection", TotalTime = 1f, RewardMoney = 20},
-                    new WorldTaskData {DisplayName = "Collect Protection", TotalTime = 2f, RewardMoney = 50}
+                    new WorldTaskData {DisplayName = "Collect Protection 1", TotalTime = 2f, RewardMoney = 50},
+                    new WorldTaskData {DisplayName = "Collect Protection 2", TotalTime = 1.5f, RewardMoney = 35},
+                    new WorldTaskData {DisplayName = "Collect Protection 3", TotalTime = 1f, RewardMoney = 20},
+                    new WorldTaskData {DisplayName = "Collect Protection 4", TotalTime = 2f, RewardMoney = 50}
                 });
                 //var startData = new ExecutionStartData()
                 //{
-                //    WorldTasks = new List<WorldTaskDataGroup>
+                //    ExecutionTasks = new List<WorldTaskDataGroup>
                 //    {
                 //        new WorldTaskDataGroup()
                 //        {
                 //            CrewDisplayName = "Crew One",
-                //            WorldTasks = new List<WorldTaskData>
+                //            ExecutionTasks = new List<WorldTaskData>
                 //            {
                 //                new WorldTaskData {DisplayName = "Collection Protection", TotalTime = 2f, RewardMoney = 50},
                 //                new WorldTaskData {DisplayName = "Collection Protection", TotalTime = 1.5f, RewardMoney = 35}
@@ -53,7 +54,7 @@ namespace Assets.Scripts
                 //        new WorldTaskDataGroup()
                 //        {
                 //            CrewDisplayName = "Crew Two",
-                //            WorldTasks = new List<WorldTaskData>
+                //            ExecutionTasks = new List<WorldTaskData>
                 //            {
                 //                new WorldTaskData {DisplayName = "Collection Protection", TotalTime = 1f, RewardMoney = 20},
                 //                new WorldTaskData {DisplayName = "Collection Protection", TotalTime = 2f, RewardMoney = 50}
@@ -86,8 +87,24 @@ namespace Assets.Scripts
             }
         }
 
+        private void PrepareForExecutionPhase()
+        {
+            var executionData = new ExecutionStartData();
+            foreach (var planningTask in PlanningTasks.Where(i => i.IsComplete))
+            {
+                var plannedData = new PlannedTaskData
+                {
+                    CrewName = planningTask.SelectedCrew.CrewName,
+                    WorldTaskData = planningTask.WorldTaskData
+                };
+                executionData.PlannedTasks.Add(plannedData);
+            }
+            ServiceLocator.Register<ExecutionStartData>(executionData);
+        }
+
         public void StartExecutionPhase()
         {
+            PrepareForExecutionPhase();
             SceneManager.LoadScene("ExecutionScene", LoadSceneMode.Single);
         }
 

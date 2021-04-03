@@ -10,13 +10,13 @@ namespace Assets.Scripts
         public SliderBinding SliderBinding;
         public TMP_Text NameText;
 
-        private WorldTask _worldTask;
+        private ExecutionTask _executionTask;
 
-        public void Initialize(WorldTask worldTask)
+        public void Initialize(ExecutionTask executionTask)
         {
-            _worldTask = worldTask;
-            SliderBinding.Initialize(() => _worldTask.CurrentCraftElapsedAsZeroToOne);
-            NameText.text = _worldTask.DisplayName;
+            _executionTask = executionTask;
+            SliderBinding.Initialize(() => _executionTask.CurrentCraftElapsedAsZeroToOne);
+            NameText.text = _executionTask.DisplayName;
         }
     }
 }

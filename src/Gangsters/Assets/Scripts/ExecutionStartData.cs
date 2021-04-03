@@ -4,6 +4,6 @@ namespace Assets.Scripts
 {
     public class ExecutionStartData
     {
-        public List<WorldTaskDataGroup> WorldTasks;
+        public List<PlannedTaskData> PlannedTasks = new List<PlannedTaskData>();
     }
 }

@@ -11,7 +11,7 @@ public class WorldTaskData
     public int RewardMoney;
 }
 
-public class WorldTask : QScript
+public class ExecutionTask : QScript
 {
     public float TotalTime;
     public string DisplayName;
@@ -20,7 +20,7 @@ public class WorldTask : QScript
 
     public bool IsComplete;
 
-    public Action<WorldTask> OnTaskComplete;
+    public Action<ExecutionTask> OnTaskComplete;
 
     public float CurrentCraftElapsedAsZeroToOne
     {

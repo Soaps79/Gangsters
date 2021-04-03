@@ -1,24 +1,28 @@
 ﻿using QGame;
+using TMPro;
 using UnityEngine;
 
 namespace Assets.Scripts
 {
     public class TaskGroupViewModel : QScript
     {
-        private WorldTaskGroup _worldTaskDataGroup;
+        private ExecutionTaskGroup _executionTaskGroup;
         public WorldTaskViewModel WorldTaskPrefab;
         public Transform TaskListTransform;
+        public TMP_Text GroupDisplayNameText;
 
-        public void Initialize(WorldTaskGroup worldTaskDataGroup)
+        public void Initialize(ExecutionTaskGroup executionTaskGroup)
         {
-            _worldTaskDataGroup = worldTaskDataGroup;
+            _executionTaskGroup = executionTaskGroup;
 
-            foreach (var worldTask in _worldTaskDataGroup.WorldTasks)
+            foreach (var worldTask in _executionTaskGroup.ExecutionTasks)
             {
                 var go = Instantiate(WorldTaskPrefab, TaskListTransform.transform, false);
                 var viewModel = go.GetComponent<WorldTaskViewModel>();
                 viewModel.Initialize(worldTask);
             }
+
+            GroupDisplayNameText.text = executionTaskGroup.CrewDisplayName;
         }
     }
 }

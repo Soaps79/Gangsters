@@ -11,12 +11,12 @@ public class ExecutionPhase : QScript
     private const string STOPWATCH_KEY = "phasetimer";
     public ExecutionPhaseViewModel ViewModel;
 
-    public List<WorldTaskGroup> WorldTaskGroups;
-    private WorldTask _currentWorldTask;
+    public List<ExecutionTaskGroup> ExecutionTaskGroups;
+    private ExecutionTask _currentExecutionTask;
 
     public List<WorldTaskDataGroup> TestData;
     public bool UseTestData;
-    public WorldTask WorldTaskPrefab;
+    public ExecutionTask ExecutionTaskPrefab;
 
     public TaskOutcome TaskOutcome;
 
@@ -36,40 +36,43 @@ public class ExecutionPhase : QScript
     // Start is called before the first frame update
     void Start()
     {
-        if (UseTestData)
-        {
-            foreach (var taskData in TestData)
-            {
-                CreateWorldTaskGroup(taskData);
-            }
-        }
+        //if (UseTestData)
+        //{
+        //    foreach (var taskData in TestData)
+        //    {
+        //        CreateExecutionTaskGroup(taskData);
+        //    }
+        //}
 
         var startData = ServiceLocator.Get<ExecutionStartData>();
         if (startData != null)
         {
-            foreach (var taskDataGroup in startData.WorldTasks)
+            var tasksByCrew = startData.PlannedTasks
+                .GroupBy(i => i.CrewName);
+
+            foreach (var group in tasksByCrew)
             {
-                CreateWorldTaskGroup(taskDataGroup);
+                CreateExecutionTaskGroup(group.Key, group.ToList());
             }
         }
 
         ViewModel.Initialize(this);
     }
 
-    private void CreateWorldTaskGroup(WorldTaskDataGroup taskDataGroup)
+    private void CreateExecutionTaskGroup(string crewName, List<PlannedTaskData> plannedTasks)
     {
-        var group = new WorldTaskGroup {CrewDisplayName = taskDataGroup.CrewDisplayName};
-        foreach (var worldTaskData in taskDataGroup.WorldTasks)
+        var group = new ExecutionTaskGroup {CrewDisplayName = crewName};
+        foreach (var plannedTask in plannedTasks)
         {
-            var worldTask = CreateWorldTask(worldTaskData);
-            group.WorldTasks.Add(worldTask);
+            var executionTask = CreateExecutionTask(plannedTask.WorldTaskData);
+            group.ExecutionTasks.Add(executionTask);
         }
-        WorldTaskGroups.Add(group);
+        ExecutionTaskGroups.Add(group);
     }
 
-    private WorldTask CreateWorldTask(WorldTaskData taskData)
+    private ExecutionTask CreateExecutionTask(WorldTaskData taskData)
     {
-        var task = Instantiate<WorldTask>(WorldTaskPrefab, transform);
+        var task = Instantiate<ExecutionTask>(ExecutionTaskPrefab, transform);
         task.Initialize(taskData);
         task.DisplayName = taskData.DisplayName;
         task.TotalTime = taskData.TotalTime;
@@ -78,7 +81,7 @@ public class ExecutionPhase : QScript
 
     public void StartTimer()
     {
-        foreach (var worldTaskGroup in WorldTaskGroups)
+        foreach (var worldTaskGroup in ExecutionTaskGroups)
         {
             worldTaskGroup.StartTasks();
         }
@@ -88,9 +91,9 @@ public class ExecutionPhase : QScript
 
     private void OnTimeComplete()
     {
-        foreach (var taskGroup in WorldTaskGroups)
+        foreach (var taskGroup in ExecutionTaskGroups)
         {
-            foreach (var worldTask in taskGroup.WorldTasks)
+            foreach (var worldTask in taskGroup.ExecutionTasks)
             {
                 TaskOutcome.Add(worldTask.TaskOutcome);
             }

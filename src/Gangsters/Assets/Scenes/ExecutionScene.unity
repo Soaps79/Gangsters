@@ -1150,22 +1150,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalTime: 7
   ViewModel: {fileID: 977431463}
-  WorldTaskGroups: []
+  ExecutionTaskGroups: []
   TestData:
   - CrewDisplayName: Crew One
     WorldTasks:
     - TotalTime: 2
       DisplayName: first
+      RewardMoney: 0
     - TotalTime: 4
       DisplayName: second
+      RewardMoney: 0
   - CrewDisplayName: Crew Two
     WorldTasks:
     - TotalTime: 3
       DisplayName: first
+      RewardMoney: 0
     - TotalTime: 3
       DisplayName: second
+      RewardMoney: 0
   UseTestData: 0
-  WorldTaskPrefab: {fileID: 5942334272710168378, guid: 516d40b34654ecb4e976bad379102af5, type: 3}
+  ExecutionTaskPrefab: {fileID: 5942334272710168378, guid: 516d40b34654ecb4e976bad379102af5, type: 3}
   TaskOutcome:
     MoneyReward: 0
     GainedProperties: []
