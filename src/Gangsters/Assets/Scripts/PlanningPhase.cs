@@ -11,22 +11,22 @@ namespace Assets.Scripts
 
         public List<WorldTaskData> TestData;
         public bool UseTestData;
-        private GangManager _gangManager;
+        public GangManager GangManager { get; private set; }
         public int Money;
 
         public void Start()
         {
-            _gangManager = ServiceLocator.Get<GangManager>();
-            if (_gangManager == null)
+            GangManager = ServiceLocator.Get<GangManager>();
+            if (GangManager == null)
             {
-                _gangManager = new GangManager
+                GangManager = new GangManager
                 {
                     Crews = TestCrews
                 };
-                ServiceLocator.Register<GangManager>(_gangManager);
+                ServiceLocator.Register<GangManager>(GangManager);
             }
 
-            Money = _gangManager.Money;
+            Money = GangManager.Money;
             ViewModelPrefab.Initialize(this);
         }
 

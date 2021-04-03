@@ -14,7 +14,7 @@ namespace Assets.Scripts
         public void Initialize(PlanningPhase planningPhase)
         {
             _planningPhase = planningPhase;
-            foreach (var crew in _planningPhase.TestCrews)
+            foreach (var crew in _planningPhase.GangManager.Crews)
             {
                 var go = Instantiate(CrewPrefab, CrewListTransform, false);
                 var viewModel = go.GetComponent<CrewViewModel>();
