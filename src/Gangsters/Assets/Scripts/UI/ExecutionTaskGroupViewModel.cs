@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
-    public class TaskGroupViewModel : QScript
+    public class ExecutionTaskGroupViewModel : QScript
     {
         private ExecutionTaskGroup _executionTaskGroup;
-        public WorldTaskViewModel WorldTaskPrefab;
+        public ExecutionTaskViewModel ExecutionTaskPrefab;
         public Transform TaskListTransform;
         public TMP_Text GroupDisplayNameText;
 
@@ -17,8 +17,8 @@ namespace Assets.Scripts
 
             foreach (var worldTask in _executionTaskGroup.ExecutionTasks)
             {
-                var go = Instantiate(WorldTaskPrefab, TaskListTransform.transform, false);
-                var viewModel = go.GetComponent<WorldTaskViewModel>();
+                var go = Instantiate(ExecutionTaskPrefab, TaskListTransform.transform, false);
+                var viewModel = go.GetComponent<ExecutionTaskViewModel>();
                 viewModel.Initialize(worldTask);
             }
 

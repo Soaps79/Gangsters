@@ -167,7 +167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MainSlider: {fileID: 4417014427578716714}
   TaskListRectTransform: {fileID: 4417014428760221820}
-  WorldTaskPrefab: {fileID: 9045223081557236816, guid: 76d4f129ac6b23c469df8d70dc2e2923, type: 3}
+  ExecutionTaskGroupPrefab: {fileID: 3187664358178198327, guid: 7f57acd8fd4936345bc6c48f00e44ad0, type: 3}
 --- !u!1 &4417014427578716719
 GameObject:
   m_ObjectHideFlags: 0

@@ -541,7 +541,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MainSlider: {fileID: 637647524}
   TaskListRectTransform: {fileID: 1872511218}
-  TaskGroupPrefab: {fileID: 3187664358178198327, guid: 7f57acd8fd4936345bc6c48f00e44ad0, type: 3}
+  ExecutionTaskGroupPrefab: {fileID: 3187664358178198327, guid: 7f57acd8fd4936345bc6c48f00e44ad0, type: 3}
 --- !u!114 &977431464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1148,7 +1148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 512d0b321de3fe74cbc355df3465339c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TotalTime: 7
+  TotalTime: 5
   ViewModel: {fileID: 977431463}
   ExecutionTaskGroups: []
   TestData:

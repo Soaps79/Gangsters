@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Assets.Scripts
 {
     [RequireComponent(typeof(SliderBinding))]
-    public class WorldTaskViewModel : QScript
+    public class ExecutionTaskViewModel : QScript
     {
         public SliderBinding SliderBinding;
         public TMP_Text NameText;

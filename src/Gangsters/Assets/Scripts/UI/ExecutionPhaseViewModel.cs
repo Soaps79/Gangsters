@@ -11,7 +11,7 @@ namespace Assets.Scripts
         [FormerlySerializedAs("TaskListRectRectTransform")]
         public RectTransform TaskListRectTransform;
 
-        public TaskGroupViewModel TaskGroupPrefab;
+        public ExecutionTaskGroupViewModel ExecutionTaskGroupPrefab;
         private ExecutionPhase _executionPhase;
 
         public void Initialize(ExecutionPhase executionPhase)
@@ -20,7 +20,7 @@ namespace Assets.Scripts
             MainSlider.Initialize(() => _executionPhase.CurrentCraftElapsedAsZeroToOne);
             foreach (var taskGroup in _executionPhase.ExecutionTaskGroups)
             {
-                var viewModel = Instantiate<TaskGroupViewModel>(TaskGroupPrefab, TaskListRectTransform.transform, false);
+                var viewModel = Instantiate<ExecutionTaskGroupViewModel>(ExecutionTaskGroupPrefab, TaskListRectTransform.transform, false);
                 viewModel.Initialize(taskGroup);
             }
         }

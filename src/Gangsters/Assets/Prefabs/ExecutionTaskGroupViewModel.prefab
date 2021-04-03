@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3187664358178198281}
   - component: {fileID: 3187664358178198327}
   m_Layer: 5
-  m_Name: TaskGroupViewModel
+  m_Name: ExecutionTaskGroupViewModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fff651f68a3f1cb4c8fee15f23ee5ada, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WorldTaskPrefab: {fileID: 4922688765798103076, guid: 76d4f129ac6b23c469df8d70dc2e2923, type: 3}
+  ExecutionTaskPrefab: {fileID: 4922688765798103076, guid: 76d4f129ac6b23c469df8d70dc2e2923, type: 3}
   TaskListTransform: {fileID: 3187664358648786284}
   GroupDisplayNameText: {fileID: 3187664359016193507}
 --- !u!1 &3187664358451334036
