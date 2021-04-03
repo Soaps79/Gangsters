@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.World
 {
-    [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/WorldLocation", order = 1)]
+    [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/WorldLocation")]
     public class WorldLocationSO : ScriptableObject
     {
         public string DisplayName;

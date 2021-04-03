@@ -12,7 +12,7 @@ namespace Assets.Scripts.Planning.UI
         public void Initialize(Crew crew)
         {
             _crew = crew;
-            DisplayText.text = _crew.CrewName;
+            DisplayText.text = _crew.CrewFullName;
         }
     }
 }

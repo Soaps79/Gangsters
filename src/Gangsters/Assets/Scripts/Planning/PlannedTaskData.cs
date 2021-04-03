@@ -5,6 +5,6 @@ namespace Assets.Scripts.Planning
     public class PlannedTaskData
     {
         public WorldTaskData WorldTaskData;
-        public string CrewName;
+        public string CrewId;
     }
 }

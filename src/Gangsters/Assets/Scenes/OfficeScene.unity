@@ -1069,9 +1069,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ViewModelPrefab: {fileID: 9138892167142095940}
-  TestCrews:
-  - CrewName: Crew One
-  - CrewName: Crew Two
+  TestLeaders:
+  - {fileID: 11400000, guid: 86527416f5e2ab34180b97d1271db847, type: 2}
+  - {fileID: 11400000, guid: 576457d04489b4047bb212cf00d40b8c, type: 2}
   TestData: []
   UseTestData: 1
   Money: 0

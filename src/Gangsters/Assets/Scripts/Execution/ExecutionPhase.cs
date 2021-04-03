@@ -52,7 +52,7 @@ namespace Assets.Scripts.Execution
             if (startData != null)
             {
                 var tasksByCrew = startData.PlannedTasks
-                    .GroupBy(i => i.CrewName);
+                    .GroupBy(i => i.CrewId);
 
                 foreach (var group in tasksByCrew)
                 {

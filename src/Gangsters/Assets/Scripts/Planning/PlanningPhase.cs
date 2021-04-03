@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Execution;
 using Assets.Scripts.Planning.UI;
@@ -11,7 +12,8 @@ namespace Assets.Scripts.Planning
     public class PlanningPhase : QScript
     {
         public PlanningPhaseViewModel ViewModelPrefab;
-        public List<Crew> TestCrews;
+
+        public List<CrewLeaderSO> TestLeaders;
 
         public List<WorldTaskData> TestData;
         public bool UseTestData;
@@ -83,10 +85,22 @@ namespace Assets.Scripts.Planning
             {
                 GangManager = new GangManager
                 {
-                    Crews = TestCrews
+                    Crews = GetTestCrews()
                 };
                 ServiceLocator.Register<GangManager>(GangManager);
             }
+        }
+
+        private List<Crew> GetTestCrews()
+        {
+            var crews = new List<Crew>();
+            foreach (var leaderSo in TestLeaders)
+            {
+                var crew = new Crew(leaderSo);
+                crews.Add(crew);
+            }
+
+            return crews;
         }
 
         private void PrepareForExecutionPhase()
@@ -96,7 +110,7 @@ namespace Assets.Scripts.Planning
             {
                 var plannedData = new PlannedTaskData
                 {
-                    CrewName = planningTask.SelectedCrew.CrewName,
+                    CrewId = planningTask.SelectedCrew.Id,
                     WorldTaskData = planningTask.WorldTaskData
                 };
                 executionData.PlannedTasks.Add(plannedData);
