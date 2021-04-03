@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.World;
 using QGame;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Planning.UI
 {
     public class PlanningTaskViewModel : QScript
     {

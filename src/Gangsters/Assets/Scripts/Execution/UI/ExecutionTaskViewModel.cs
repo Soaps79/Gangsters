@@ -1,8 +1,9 @@
-﻿using QGame;
+﻿using Assets.Scripts.UI;
+using QGame;
 using TMPro;
 using UnityEngine;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Execution.UI
 {
     [RequireComponent(typeof(SliderBinding))]
     public class ExecutionTaskViewModel : QScript

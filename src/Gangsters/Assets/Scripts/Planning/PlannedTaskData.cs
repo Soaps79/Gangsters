@@ -1,4 +1,6 @@
-﻿namespace Assets.Scripts
+﻿using Assets.Scripts.Execution;
+
+namespace Assets.Scripts.Planning
 {
     public class PlannedTaskData
     {

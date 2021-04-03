@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using Assets.Scripts.Planning;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Execution
 {
     public class ExecutionStartData
     {

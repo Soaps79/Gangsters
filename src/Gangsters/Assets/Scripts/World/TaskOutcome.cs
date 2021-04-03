@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.World
 {
     [System.Serializable]
     public class TaskOutcome

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Assets.Scripts.Execution;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.World
 {
     [Serializable]
     public class WorldTaskDataGroup

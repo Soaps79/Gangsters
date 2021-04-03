@@ -1,7 +1,8 @@
-﻿using QGame;
+﻿using Assets.Scripts.World;
+using QGame;
 using TMPro;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Planning.UI
 {
     public class CrewViewModel : QScript
     {

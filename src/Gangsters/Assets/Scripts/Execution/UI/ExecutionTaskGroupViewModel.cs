@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Execution.UI
 {
     public class ExecutionTaskGroupViewModel : QScript
     {

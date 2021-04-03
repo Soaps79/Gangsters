@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using TMPro;
-using UnityEngine;
+using Assets.Scripts.Execution;
+using Assets.Scripts.World;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Planning
 {
     public class PlanningTask
     {

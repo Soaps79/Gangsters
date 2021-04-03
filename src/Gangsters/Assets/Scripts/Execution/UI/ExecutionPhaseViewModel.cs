@@ -1,9 +1,9 @@
-﻿using QGame;
-using Unity.VisualScripting;
+﻿using Assets.Scripts.UI;
+using QGame;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Execution.UI
 {
     public class ExecutionPhaseViewModel : QScript
     {

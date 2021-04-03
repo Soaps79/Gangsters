@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Execution;
+using Assets.Scripts.Planning.UI;
+using Assets.Scripts.World;
 using QGame;
 using UnityEngine.SceneManagement;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Planning
 {
     public class PlanningPhase : QScript
     {

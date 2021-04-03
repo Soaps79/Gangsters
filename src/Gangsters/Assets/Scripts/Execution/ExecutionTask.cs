@@ -1,63 +1,66 @@
 using System;
-using Assets.Scripts;
+using Assets.Scripts.World;
 using QGame;
 using UnityEngine;
 
-[Serializable]
-public class WorldTaskData
+namespace Assets.Scripts.Execution
 {
-    public float TotalTime;
-    public string DisplayName;
-    public int RewardMoney;
-}
-
-public class ExecutionTask : QScript
-{
-    public float TotalTime;
-    public string DisplayName;
-    private const string STOPWATCH_KEY = "t";
-    public TaskOutcome TaskOutcome;
-
-    public bool IsComplete;
-
-    public Action<ExecutionTask> OnTaskComplete;
-
-    public float CurrentCraftElapsedAsZeroToOne
+    [Serializable]
+    public class WorldTaskData
     {
-        get
+        public float TotalTime;
+        public string DisplayName;
+        public int RewardMoney;
+    }
+
+    public class ExecutionTask : QScript
+    {
+        public float TotalTime;
+        public string DisplayName;
+        private const string STOPWATCH_KEY = "t";
+        public TaskOutcome TaskOutcome;
+
+        public bool IsComplete;
+
+        public Action<ExecutionTask> OnTaskComplete;
+
+        public float CurrentCraftElapsedAsZeroToOne
         {
-            if (IsComplete) return 1f;
-            return StopWatch.IsRunning()
-                ? StopWatch[STOPWATCH_KEY].ElapsedLifetimeAsZeroToOne : 0f;
+            get
+            {
+                if (IsComplete) return 1f;
+                return StopWatch.IsRunning()
+                    ? StopWatch[STOPWATCH_KEY].ElapsedLifetimeAsZeroToOne : 0f;
+            }
         }
-    }
 
-    public void Initialize(WorldTaskData data)
-    {
-        if (data == null)
-            throw new UnityException();
-        TaskOutcome = new TaskOutcome
+        public void Initialize(WorldTaskData data)
         {
-            MoneyReward = data.RewardMoney
-        };
+            if (data == null)
+                throw new UnityException();
+            TaskOutcome = new TaskOutcome
+            {
+                MoneyReward = data.RewardMoney
+            };
 
-        TotalTime = data.TotalTime;
-        DisplayName = data.DisplayName;
-    }
+            TotalTime = data.TotalTime;
+            DisplayName = data.DisplayName;
+        }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
+        // Start is called before the first frame update
+        void Start()
+        {
+        }
 
-    public void OnComplete()
-    {
-        OnTaskComplete?.Invoke(this);
-        IsComplete = true;
-    }
+        public void OnComplete()
+        {
+            OnTaskComplete?.Invoke(this);
+            IsComplete = true;
+        }
 
-    public void StartTimer()
-    {
-        StopWatch.AddNode(STOPWATCH_KEY, TotalTime, true).OnTick = OnComplete;
+        public void StartTimer()
+        {
+            StopWatch.AddNode(STOPWATCH_KEY, TotalTime, true).OnTick = OnComplete;
+        }
     }
 }

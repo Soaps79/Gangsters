@@ -3,7 +3,7 @@ using QGame;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.UI
 {
     [RequireComponent(typeof(Slider))]
     public class SliderBinding : QScript
