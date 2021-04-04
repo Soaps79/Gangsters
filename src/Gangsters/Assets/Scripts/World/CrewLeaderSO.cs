@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Assets.Scripts.World;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/CrewLeader")]
@@ -16,6 +18,8 @@ public class CrewLeaderSO : ScriptableObject
     [SerializeField]
     private string _crewName;
     public string CrewName => _crewName;
+
+    public List<AttributeValuePair> BaseAttributes;
 
     public string FullName => $"{FirstName} {LastName}";
 }
