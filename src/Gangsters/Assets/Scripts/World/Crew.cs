@@ -27,5 +27,10 @@ namespace Assets.Scripts.World
                 Attributes.AddValue(valuePair);
             }
         }
+
+        public string ToString()
+        {
+            return $"{CrewName}  {Attributes.ToString()}";
+        }
     }
 }

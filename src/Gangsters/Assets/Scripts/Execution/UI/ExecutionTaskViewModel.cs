@@ -18,6 +18,7 @@ namespace Assets.Scripts.Execution.UI
             _executionTask = executionTask;
             SliderBinding.Initialize(() => _executionTask.CurrentCraftElapsedAsZeroToOne);
             NameText.text = _executionTask.DisplayName;
+            Debug.Log($"Task has {executionTask.Crew.ToString()}");
         }
     }
 }

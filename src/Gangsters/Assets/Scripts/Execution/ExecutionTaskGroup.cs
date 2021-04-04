@@ -16,6 +16,13 @@ namespace Assets.Scripts.Execution
         private readonly Queue<ExecutionTask> _worldTaskQueue = new Queue<ExecutionTask>();
         private ExecutionTask _currentExecutionTask;
 
+        public Crew Crew { get; private set; }
+
+        public ExecutionTaskGroup(Crew crew)
+        {
+            Crew = crew;
+        }
+
         public void StartTasks()
         {
             ExecutionTasks.ForEach(i => _worldTaskQueue.Enqueue(i));

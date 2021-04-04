@@ -26,6 +26,8 @@ namespace Assets.Scripts.Execution
         public Canvas MainCanvas;
         public ResultsViewModel ResultsPrefab;
 
+        public GangManager GangManager { get; private set; }
+
         public float CurrentCraftElapsedAsZeroToOne
         {
             get
@@ -50,6 +52,8 @@ namespace Assets.Scripts.Execution
             var startData = ServiceLocator.Get<ExecutionStartData>();
             if (startData != null)
             {
+                GangManager = ServiceLocator.Get<GangManager>();
+
                 var tasksByCrew = startData.PlannedTasks
                     .GroupBy(i => i.CrewId);
 
@@ -64,19 +68,23 @@ namespace Assets.Scripts.Execution
 
         private void CreateExecutionTaskGroup(string crewName, List<PlannedTaskData> plannedTasks)
         {
-            var group = new ExecutionTaskGroup {CrewDisplayName = crewName};
+            var crew = GangManager.Crews.FirstOrDefault(i => i.Id == crewName);
+            if (crew == null)
+                throw new UnityException("ExecutionPhase cannot find crew");
+
+            var group = new ExecutionTaskGroup(crew);
             foreach (var plannedTask in plannedTasks)
             {
-                var executionTask = CreateExecutionTask(plannedTask.WorldTaskData);
+                var executionTask = CreateExecutionTask(plannedTask.WorldTaskData, crew);
                 group.ExecutionTasks.Add(executionTask);
             }
             ExecutionTaskGroups.Add(group);
         }
 
-        private ExecutionTask CreateExecutionTask(WorldTaskData taskData)
+        private ExecutionTask CreateExecutionTask(WorldTaskData taskData, Crew crew)
         {
-            var task = Instantiate<ExecutionTask>(ExecutionTaskPrefab, transform);
-            task.Initialize(taskData);
+            var task = Instantiate(ExecutionTaskPrefab, transform);
+            task.Initialize(taskData, crew);
             task.DisplayName = taskData.DisplayName;
             task.TotalTime = taskData.TotalTime;
             return task;

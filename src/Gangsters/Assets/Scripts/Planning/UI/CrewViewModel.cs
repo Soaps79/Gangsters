@@ -1,9 +1,7 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Assets.Scripts.World;
 using QGame;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,8 +21,7 @@ namespace Assets.Scripts.Planning.UI
             CrewNameText.text = _crew.CrewName;
             CrewLeaderPortrait.sprite = _crew.LeaderPortraitSprite;
 
-            Debug.Log(crew.Attributes.GetAll()
-                .Aggregate("Attributes: ", (s, pair) => s += $" {pair.Name} : {pair.Value}"));
+            Debug.Log(crew.ToString());
         }
     }
 }

@@ -36,5 +36,10 @@ namespace Assets.Scripts.World
         {
             _attributes.Clear();
         }
+
+        public string ToString()
+        {
+            return _attributes.Aggregate("Attributes: ", (s, pair) => s += $"  {pair.Key}-{pair.Value}");
+        }
     }
 }

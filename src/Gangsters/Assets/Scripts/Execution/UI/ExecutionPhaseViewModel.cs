@@ -20,7 +20,7 @@ namespace Assets.Scripts.Execution.UI
             MainSlider.Initialize(() => _executionPhase.CurrentCraftElapsedAsZeroToOne);
             foreach (var taskGroup in _executionPhase.ExecutionTaskGroups)
             {
-                var viewModel = Instantiate<ExecutionTaskGroupViewModel>(ExecutionTaskGroupPrefab, TaskListRectTransform.transform, false);
+                var viewModel = Instantiate(ExecutionTaskGroupPrefab, TaskListRectTransform.transform, false);
                 viewModel.Initialize(taskGroup);
             }
         }

@@ -23,6 +23,8 @@ namespace Assets.Scripts.Execution.UI
             }
 
             GroupDisplayNameText.text = executionTaskGroup.CrewDisplayName;
+
+            Debug.Log($"TaskGroup has {executionTaskGroup.Crew.ToString()}");
         }
     }
 }

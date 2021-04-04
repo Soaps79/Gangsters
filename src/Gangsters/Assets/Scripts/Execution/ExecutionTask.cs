@@ -17,6 +17,7 @@ namespace Assets.Scripts.Execution
         public bool IsComplete;
 
         public Action<ExecutionTask> OnTaskComplete;
+        public Crew Crew { get; private set; }
 
         public float CurrentCraftElapsedAsZeroToOne
         {
@@ -28,10 +29,12 @@ namespace Assets.Scripts.Execution
             }
         }
 
-        public void Initialize(WorldTaskData data)
+        public void Initialize(WorldTaskData data, Crew crew)
         {
-            if (data == null)
+            if (data == null || crew == null)
                 throw new UnityException();
+
+            Crew = crew;
             TaskOutcome = new TaskOutcome
             {
                 MoneyReward = data.RewardMoney
