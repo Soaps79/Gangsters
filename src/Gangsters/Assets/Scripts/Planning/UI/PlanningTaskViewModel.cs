@@ -26,7 +26,7 @@ namespace Assets.Scripts.Planning.UI
             Dropdown.options.Add(new TMP_Dropdown.OptionData(_emptySelectionText));
             foreach (var availableCrew in AvailableCrews)
             {
-                Dropdown.options.Add(new TMP_Dropdown.OptionData(availableCrew.CrewShortName));
+                Dropdown.options.Add(new TMP_Dropdown.OptionData(availableCrew.CrewName));
             }
             Dropdown.onValueChanged.AddListener(OnDropdownSelectionChanged);
             UpdateReadyToggle();
@@ -41,7 +41,7 @@ namespace Assets.Scripts.Planning.UI
             }
             else
             {
-                var crew = AvailableCrews.FirstOrDefault(i => i.CrewShortName == crewName);
+                var crew = AvailableCrews.FirstOrDefault(i => i.CrewName == crewName);
                 if (crew == null)
                     throw new UnityException("Invalid crew selected from dropdown");
                 _planningTask.SetCrew(crew);

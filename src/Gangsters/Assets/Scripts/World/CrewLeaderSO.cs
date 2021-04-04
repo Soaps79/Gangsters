@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/CrewLeader")]
@@ -14,8 +12,8 @@ public class CrewLeaderSO : ScriptableObject
     public string LastName => _lastName;
 
     [SerializeField]
-    private string _nickName;
-    public string NickName => _nickName;
+    private string _crewName;
+    public string CrewName => _crewName;
 
-    public string FullName => $"{FirstName} \"{NickName}\" {LastName}";
+    public string FullName => $"{FirstName} {LastName}";
 }

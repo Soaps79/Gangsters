@@ -3,11 +3,11 @@
     [System.Serializable]
     public class Crew
     {
-        public string Id => _crewLeaderSo.name;
         private CrewLeaderSO _crewLeaderSo;
-
-        public string CrewFullName => $"{_crewLeaderSo.FullName}'s Crew";
-        public string CrewShortName => _crewLeaderSo.NickName;
+        
+        public string Id => _crewLeaderSo.name;
+        public string CrewName => _crewLeaderSo.CrewName;
+        public string LeaderName => _crewLeaderSo.FullName;
 
         public Crew(CrewLeaderSO leaderSo)
         {
