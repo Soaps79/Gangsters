@@ -18,7 +18,6 @@ namespace Assets.Scripts.Execution
         public List<ExecutionTaskGroup> ExecutionTaskGroups;
         private ExecutionTask _currentExecutionTask;
 
-        public List<WorldTaskDataGroup> TestData;
         public bool UseTestData;
         public ExecutionTask ExecutionTaskPrefab;
 
@@ -42,7 +41,7 @@ namespace Assets.Scripts.Execution
         {
             //if (UseTestData)
             //{
-            //    foreach (var taskData in TestData)
+            //    foreach (var taskData in TestTasks)
             //    {
             //        CreateExecutionTaskGroup(taskData);
             //    }

@@ -22,6 +22,11 @@ namespace Assets.Scripts.World
             return _attributes.ContainsKey(name) ? _attributes[name] : 0;
         }
 
+        public bool MeetsRequirements(IEnumerable<AttributeValuePair> requirements)
+        {
+            return requirements.All(i => _attributes.ContainsKey(i.Name) && _attributes[i.Name] >= i.Value);
+        }
+
         public List<AttributeValuePair> GetAll()
         {
             return _attributes.Select(i => new AttributeValuePair(i.Key, i.Value)).ToList();

@@ -5,13 +5,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Execution
 {
-    [Serializable]
-    public class WorldTaskData
-    {
-        public float TotalTime;
-        public string DisplayName;
-        public int RewardMoney;
-    }
+
 
     public class ExecutionTask : QScript
     {

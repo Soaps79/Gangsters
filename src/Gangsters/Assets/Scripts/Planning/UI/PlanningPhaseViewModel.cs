@@ -29,7 +29,7 @@ namespace Assets.Scripts.Planning.UI
         {
             foreach (var crew in _planningPhase.GangManager.Crews)
             {
-                var viewModel = Instantiate<CrewViewModel>(CrewPrefab, CrewListTransform, false);
+                var viewModel = Instantiate(CrewPrefab, CrewListTransform, false);
                 viewModel.Initialize(crew);
             }
         }
@@ -38,8 +38,8 @@ namespace Assets.Scripts.Planning.UI
         {
             foreach (var planningTask in _planningPhase.PlanningTasks)
             {
-                var viewModel = Instantiate<PlanningTaskViewModel>(TaskPrefab, TaskListTransform, false);
-                viewModel.Initialize(planningTask, _planningPhase.GangManager.Crews);
+                var viewModel = Instantiate(TaskPrefab, TaskListTransform, false);
+                viewModel.Initialize(planningTask, _planningPhase.GangManager.GetAbleCrews(planningTask.WorldTaskData.Requirements));
             }
         }
     }
