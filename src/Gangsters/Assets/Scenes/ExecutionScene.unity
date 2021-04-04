@@ -1148,26 +1148,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 512d0b321de3fe74cbc355df3465339c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TotalTime: 5
+  TotalTime: 4
   ViewModel: {fileID: 977431463}
   ExecutionTaskGroups: []
-  TestData:
-  - CrewDisplayName: Crew One
-    WorldTasks:
-    - TotalTime: 2
-      DisplayName: first
-      RewardMoney: 0
-    - TotalTime: 4
-      DisplayName: second
-      RewardMoney: 0
-  - CrewDisplayName: Crew Two
-    WorldTasks:
-    - TotalTime: 3
-      DisplayName: first
-      RewardMoney: 0
-    - TotalTime: 3
-      DisplayName: second
-      RewardMoney: 0
   UseTestData: 0
   ExecutionTaskPrefab: {fileID: 5942334272710168378, guid: 516d40b34654ecb4e976bad379102af5, type: 3}
   TaskOutcome:

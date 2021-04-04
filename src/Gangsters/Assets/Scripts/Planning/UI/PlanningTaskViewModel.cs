@@ -22,7 +22,7 @@ namespace Assets.Scripts.Planning.UI
             AvailableCrews = availableCrews;
             _planningTask = planningTask;
 
-            TaskNameText.text = $"{_planningTask.DisplayName} : {_planningTask.TimeAsString} : {_planningTask.WorldTaskData.RewardMoney}";
+            TaskNameText.text = $"{_planningTask.DisplayName} : ${_planningTask.WorldTaskData.RewardMoney}";
             Dropdown.options.Add(new TMP_Dropdown.OptionData(_emptySelectionText));
             foreach (var availableCrew in AvailableCrews)
             {
