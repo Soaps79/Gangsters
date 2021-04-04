@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01c1e9cd8f4b5184cac2cfc09156282a, type: 3}
   m_Name: leader1
   m_EditorClassIdentifier: 
+  PortraitSprite: {fileID: -5281106537177244264, guid: 6295411701864ea4784e4538f47890e4, type: 3}
   _firstName: Clodovio
   _lastName: Jeffery
   _crewName: Silver Dollar Crew

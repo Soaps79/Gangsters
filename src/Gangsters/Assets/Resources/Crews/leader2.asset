@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01c1e9cd8f4b5184cac2cfc09156282a, type: 3}
   m_Name: leader2
   m_EditorClassIdentifier: 
+  PortraitSprite: {fileID: 3769460248129706592, guid: 6295411701864ea4784e4538f47890e4, type: 3}
   _firstName: Guy
   _lastName: Fusillo
   _crewName: Smokes Crew

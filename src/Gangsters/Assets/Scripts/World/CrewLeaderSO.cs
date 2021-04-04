@@ -3,6 +3,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/CrewLeader")]
 public class CrewLeaderSO : ScriptableObject
 {
+    public Sprite PortraitSprite;
+
     [SerializeField]
     private string _firstName;
     public string FirstName => _firstName;
