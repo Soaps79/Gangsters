@@ -28,7 +28,7 @@ namespace Assets.Scripts.World
             }
         }
 
-        public string ToString()
+        public override string ToString()
         {
             return $"{CrewName}  {Attributes.ToString()}";
         }

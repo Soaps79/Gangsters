@@ -5,6 +5,7 @@ using Assets.Scripts.Execution;
 using Assets.Scripts.Planning.UI;
 using Assets.Scripts.World;
 using QGame;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts.Planning
@@ -17,27 +18,42 @@ namespace Assets.Scripts.Planning
         public List<WorldTaskData> TestTasks;
         public bool UseTestData;
 
+        public Transform MainCanvas;
+        public ResultsListViewModel ResultsListPrefab;
+        
         public GangManager GangManager { get; private set; }
         public List<PlanningTask> PlanningTasks = new List<PlanningTask>();
         private readonly List<WorldTaskData> _availableWorldTasks = new List<WorldTaskData>();
         public int Money;
-        
+
         public void Start()
         {
-            CheckForTestTasks();
+            CheckForTestData();
             CreatePlanningTasks();
-            GetOrCreateGangManager();
 
             Money = GangManager.Money;
-            ViewModelPrefab.Initialize(this);
+            if(!CheckForResults())
+                InitializePhaseUI();
         }
 
-        private void CheckForTestTasks()
+        private void InitializePhaseUI()
         {
-            if (UseTestData)
+            ViewModelPrefab.Initialize(this);
+            ViewModelPrefab.gameObject.SetActive(true);
+        }
+
+        private void CheckForTestData()
+        {
+            if (!UseTestData) return;
+            
+            _availableWorldTasks.AddRange(TestTasks);
+            GangManager = ServiceLocator.Get<GangManager>();
+            if (GangManager == null)
             {
-                _availableWorldTasks.AddRange(TestTasks);
+                throw new UnityException("PlanningPhase could not find a GangManager");
             }
+
+            GangManager.Crews = GetTestCrews();
         }
 
         private void CreatePlanningTasks()
@@ -45,19 +61,6 @@ namespace Assets.Scripts.Planning
             foreach (var taskData in _availableWorldTasks)
             {
                 PlanningTasks.Add(new PlanningTask(taskData));
-            }
-        }
-
-        private void GetOrCreateGangManager()
-        {
-            GangManager = ServiceLocator.Get<GangManager>();
-            if (GangManager == null)
-            {
-                GangManager = new GangManager
-                {
-                    Crews = GetTestCrews()
-                };
-                ServiceLocator.Register<GangManager>(GangManager);
             }
         }
 
@@ -71,6 +74,26 @@ namespace Assets.Scripts.Planning
             }
 
             return crews;
+        }
+
+        private bool CheckForResults()
+        {
+            var resultsManager = ServiceLocator.Get<ResultsManager>();
+            if (resultsManager.HasResultsToBeProcessed)
+            {
+                var viewModel = Instantiate(ResultsListPrefab, MainCanvas, false);
+                viewModel.Initialize(resultsManager);
+                viewModel.OnComplete += OnAcceptResultsComplete;
+                return true;
+            }
+            else
+                return false;
+        }
+
+        private void OnAcceptResultsComplete(ResultsListViewModel viewModel)
+        {
+            viewModel.gameObject.SetActive(false);
+            InitializePhaseUI();
         }
 
         private void PrepareForExecutionPhase()

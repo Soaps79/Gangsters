@@ -4,6 +4,7 @@ using Assets.Scripts.Execution.UI;
 using Assets.Scripts.Planning;
 using Assets.Scripts.World;
 using QGame;
+using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -102,18 +103,17 @@ namespace Assets.Scripts.Execution
 
         private void OnTimeComplete()
         {
+            var resultsManager = ServiceLocator.Get<ResultsManager>();
+            
             foreach (var taskGroup in ExecutionTaskGroups)
             {
                 foreach (var worldTask in taskGroup.ExecutionTasks)
                 {
-                    TaskOutcome.Add(worldTask.TaskOutcome);
+                    resultsManager.AddOutcome(worldTask.DisplayName, worldTask.TaskOutcome);
                 }
             }
             var resultsViewModel = Instantiate<ResultsViewModel>(ResultsPrefab, MainCanvas.transform, false);
             resultsViewModel.Initialize(this);
-            var gangManager = ServiceLocator.Get<GangManager>();
-            if (gangManager != null)
-                gangManager.Money += TaskOutcome.MoneyReward;
         }
 
         public void CompleteScene()
