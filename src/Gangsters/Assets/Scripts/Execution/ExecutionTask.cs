@@ -1,5 +1,6 @@
 using System;
 using Assets.Scripts.World;
+using MiscUtil.Linq.Extensions;
 using QGame;
 using UnityEngine;
 
@@ -37,16 +38,12 @@ namespace Assets.Scripts.Execution
             Crew = crew;
             TaskOutcome = new TaskOutcome
             {
-                MoneyReward = data.RewardMoney
+                MoneyReward = data.RewardMoney + data.ExtortedProperties.Sum(i => i.ExtortionValue),
+                ExtortedProperties = data.ExtortedProperties
             };
 
             TotalTime = data.TotalTime;
             DisplayName = data.DisplayName;
-        }
-
-        // Start is called before the first frame update
-        void Start()
-        {
         }
 
         public void OnComplete()

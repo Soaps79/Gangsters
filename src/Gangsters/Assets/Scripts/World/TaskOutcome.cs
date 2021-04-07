@@ -6,12 +6,12 @@ namespace Assets.Scripts.World
     public class TaskOutcome
     {
         public int MoneyReward;
-        public List<WorldProperty> GainedProperties = new List<WorldProperty>();
+        public List<WorldPropertySO> ExtortedProperties = new List<WorldPropertySO>();
 
         public void Add(TaskOutcome taskOutcome)
         {
             MoneyReward += taskOutcome.MoneyReward;
-            GainedProperties.AddRange(taskOutcome.GainedProperties);
+            ExtortedProperties.AddRange(taskOutcome.ExtortedProperties);
         }
     }
 }

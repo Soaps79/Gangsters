@@ -48,5 +48,10 @@ namespace Assets.Scripts.Planning.UI
                 viewModel.Initialize(planningTask, _planningPhase.GangManager.GetAbleCrews(planningTask.WorldTaskData.Requirements));
             }
         }
+
+        public void OnDestroy()
+        {
+            _planningPhase.GangManager.OnMoneyChanged -= UpdateMoney;
+        }
     }
 }

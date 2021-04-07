@@ -4,7 +4,6 @@ using Assets.Scripts.Execution.UI;
 using Assets.Scripts.Planning;
 using Assets.Scripts.World;
 using QGame;
-using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -21,8 +20,6 @@ namespace Assets.Scripts.Execution
 
         public bool UseTestData;
         public ExecutionTask ExecutionTaskPrefab;
-
-        public TaskOutcome TaskOutcome;
 
         public Canvas MainCanvas;
         public ResultsViewModel ResultsPrefab;
