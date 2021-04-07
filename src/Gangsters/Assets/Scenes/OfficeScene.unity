@@ -1148,7 +1148,7 @@ MonoBehaviour:
     - _attribute: {fileID: 11400000, guid: 8378dabc19102c947a9057a8512215fe, type: 2}
       Value: 3
   UseTestData: 1
-  MainCanvas: {fileID: 0}
+  MainCanvas: {fileID: 783021538}
   ResultsListPrefab: {fileID: 1356074703062483679, guid: 0d3087bd2db864d44bcab7a52a1c59fb, type: 3}
   Money: 0
 --- !u!4 &2144102330

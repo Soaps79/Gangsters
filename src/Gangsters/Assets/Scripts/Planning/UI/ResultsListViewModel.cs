@@ -23,7 +23,6 @@ namespace Assets.Scripts.Planning.UI
                 viewModel.Initialize(result, resultsManager);
                 viewModel.OnComplete += () =>
                 {
-                    viewModel.gameObject.SetActive(false);
                     if (!_resultsManager.HasResultsToBeProcessed)
                         OnComplete?.Invoke(this);
                 };

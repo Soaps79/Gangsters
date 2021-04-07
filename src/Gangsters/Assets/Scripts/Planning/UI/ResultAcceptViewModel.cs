@@ -1,5 +1,6 @@
 using System;
 using Assets.Scripts.World;
+using DG.Tweening;
 using QGame;
 using TMPro;
 using UnityEngine;
@@ -8,6 +9,7 @@ using UnityEngine.UI;
 namespace Assets.Scripts.Planning.UI
 {
     [RequireComponent(typeof(Button))]
+    [RequireComponent(typeof(CanvasGroup))]
     public class ResultAcceptViewModel : QScript
     {
         public TMP_Text DisplayText;
@@ -24,10 +26,18 @@ namespace Assets.Scripts.Planning.UI
             button.onClick.AddListener(() =>
             {
                 resultsManager.Distribute(taskResults);
-                    OnComplete?.Invoke();
+                BeginFadeOut();
             });
         }
 
-    
+        public void BeginFadeOut()
+        {
+            var image = GetComponent<CanvasGroup>();
+            image.DOFade(0f, .5f).onComplete += () =>
+            {
+                OnComplete?.Invoke();
+                gameObject.SetActive(false);
+            };
+        }
     }
 }
