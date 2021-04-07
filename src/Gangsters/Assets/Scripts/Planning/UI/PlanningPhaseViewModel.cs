@@ -19,10 +19,16 @@ namespace Assets.Scripts.Planning.UI
         public void Initialize(PlanningPhase planningPhase)
         {
             _planningPhase = planningPhase;
-            AssetsText.text = $"${_planningPhase.Money}";
+            _planningPhase.GangManager.OnMoneyChanged += UpdateMoney;
+            UpdateMoney(_planningPhase.GangManager.Money);
          
             InitializeGangViews();
             InitializeTaskViews();
+        }
+
+        private void UpdateMoney(int money)
+        {
+            AssetsText.text = $"${money}";
         }
 
         private void InitializeGangViews()

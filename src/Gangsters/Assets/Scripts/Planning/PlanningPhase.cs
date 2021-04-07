@@ -24,14 +24,18 @@ namespace Assets.Scripts.Planning
         public GangManager GangManager { get; private set; }
         public List<PlanningTask> PlanningTasks = new List<PlanningTask>();
         private readonly List<WorldTaskData> _availableWorldTasks = new List<WorldTaskData>();
-        public int Money;
 
         public void Start()
         {
+            GangManager = ServiceLocator.Get<GangManager>();
+            if (GangManager == null)
+            {
+                throw new UnityException("PlanningPhase could not find a GangManager");
+            }
+
             CheckForTestData();
             CreatePlanningTasks();
 
-            Money = GangManager.Money;
             if(!CheckForResults())
                 InitializePhaseUI();
         }
@@ -47,12 +51,6 @@ namespace Assets.Scripts.Planning
             if (!UseTestData) return;
             
             _availableWorldTasks.AddRange(TestTasks);
-            GangManager = ServiceLocator.Get<GangManager>();
-            if (GangManager == null)
-            {
-                throw new UnityException("PlanningPhase could not find a GangManager");
-            }
-
             GangManager.Crews = GetTestCrews();
         }
 

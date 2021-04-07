@@ -1,9 +1,10 @@
-﻿namespace Assets.Scripts.World
+﻿using UnityEngine;
+
+namespace Assets.Scripts.World
 {
-    [System.Serializable]
-    public class WorldProperty
+    public class WorldProperty : ScriptableObject
     {
         public string Name;
-        public int ExtorionValue;
+        public int ExtortionValue;
     }
 }
