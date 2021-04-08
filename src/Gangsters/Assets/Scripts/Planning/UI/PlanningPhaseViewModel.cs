@@ -1,4 +1,6 @@
-﻿using QGame;
+﻿using System.Linq;
+using Assets.Scripts.World;
+using QGame;
 using TMPro;
 using UnityEngine;
 
@@ -14,21 +16,36 @@ namespace Assets.Scripts.Planning.UI
         public PlanningTaskViewModel TaskPrefab;
         public Transform TaskListTransform;
         
-        public TMP_Text AssetsText;
+        public TMP_Text MoneyText;
+        public TMP_Text PropertiesText;
         
         public void Initialize(PlanningPhase planningPhase)
         {
             _planningPhase = planningPhase;
             _planningPhase.GangManager.OnMoneyChanged += UpdateMoney;
-            UpdateMoney(_planningPhase.GangManager.Money);
+            _planningPhase.GangManager.OnPropertiesChanged += UpdateProperties;
+
+            UpdateMoney();
+            UpdateProperties();
          
             InitializeGangViews();
             InitializeTaskViews();
         }
 
-        private void UpdateMoney(int money)
+        private void UpdateProperties()
         {
-            AssetsText.text = $"${money}";
+            var text = "Extorted Properties:\n";
+            if (_planningPhase.GangManager.ExtortedProperties.Any())
+            {
+                text += string.Join("\n",  _planningPhase.GangManager.ExtortedProperties.Select(i => i.DisplayName));
+            }
+
+            PropertiesText.text = text;
+        }
+
+        private void UpdateMoney()
+        {
+            MoneyText.text = $"${_planningPhase.GangManager.Money}";
         }
 
         private void InitializeGangViews()

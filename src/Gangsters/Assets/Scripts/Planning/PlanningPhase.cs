@@ -36,8 +36,8 @@ namespace Assets.Scripts.Planning
             CheckForTestData();
             CreatePlanningTasks();
 
-            if(!CheckForResults())
-                InitializePhaseUI();
+            InitializePhaseUI();
+            CheckForResults();
         }
 
         private void InitializePhaseUI()
@@ -50,8 +50,10 @@ namespace Assets.Scripts.Planning
         {
             if (!UseTestData) return;
             
-            _availableWorldTasks.AddRange(TestTasks);
-            GangManager.Crews = GetTestCrews();
+            if(!_availableWorldTasks.Any())
+                _availableWorldTasks.AddRange(TestTasks);
+            if(!GangManager.Crews.Any())
+                GangManager.Crews = GetTestCrews();
         }
 
         private void CreatePlanningTasks()
@@ -74,7 +76,7 @@ namespace Assets.Scripts.Planning
             return crews;
         }
 
-        private bool CheckForResults()
+        private void CheckForResults()
         {
             var resultsManager = ServiceLocator.Get<ResultsManager>();
             if (resultsManager.HasResultsToBeProcessed)
@@ -82,10 +84,7 @@ namespace Assets.Scripts.Planning
                 var viewModel = Instantiate(ResultsListPrefab, MainCanvas, false);
                 viewModel.Initialize(resultsManager);
                 viewModel.OnComplete += OnAcceptResultsComplete;
-                return true;
             }
-            else
-                return false;
         }
 
         private void OnAcceptResultsComplete(ResultsListViewModel viewModel)
@@ -114,7 +113,5 @@ namespace Assets.Scripts.Planning
             PrepareForExecutionPhase();
             SceneManager.LoadScene("ExecutionScene", LoadSceneMode.Single);
         }
-
-        
     }
 }

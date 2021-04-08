@@ -4,13 +4,14 @@ using System.Linq;
 
 namespace Assets.Scripts.World
 {
-    public class GangManager : IMoneyCollection
+    public class GangManager : IMoneyCollection, IPropertyCollection
     {
         public int Money { get; private set; }
         public List<Crew> Crews = new List<Crew>();
-        public List<WorldProperty> Properties = new List<WorldProperty>();
+        public List<WorldPropertySO> ExtortedProperties = new List<WorldPropertySO>();
 
-        public Action<int> OnMoneyChanged;
+        public Action OnMoneyChanged;
+        public Action OnPropertiesChanged;
 
         public List<Crew> GetAbleCrews(List<AttributeValuePair> requirements)
         {
@@ -20,7 +21,16 @@ namespace Assets.Scripts.World
         public void AcceptMoney(int amount)
         {
             Money += amount;
-            OnMoneyChanged?.Invoke(Money);
+            OnMoneyChanged?.Invoke();
+        }
+
+        public void AcceptProperty(WorldPropertySO property)
+        {
+            if (!ExtortedProperties.Contains(property))
+            {
+                ExtortedProperties.Add(property);
+                OnPropertiesChanged?.Invoke();
+            }
         }
     }
 }

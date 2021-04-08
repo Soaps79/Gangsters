@@ -14,14 +14,21 @@ namespace Assets.Scripts.World
         public void AcceptMoney(int amount);
     }
 
+    public interface IPropertyCollection
+    {
+        public void AcceptProperty(WorldPropertySO property);
+    }
+
     public class ResultsManager
     {
         public List<TaskResults> LastResults { get; } = new List<TaskResults>();
         private readonly IMoneyCollection _moneyCollection;
+        private readonly IPropertyCollection _propertyCollection;
 
-        public ResultsManager(IMoneyCollection moneyCollection)
+        public ResultsManager(IMoneyCollection moneyCollection, IPropertyCollection propertyCollection)
         {
             _moneyCollection = moneyCollection;
+            _propertyCollection = propertyCollection;
         }
 
         public bool HasResultsToBeProcessed => LastResults.Any();
@@ -33,7 +40,16 @@ namespace Assets.Scripts.World
 
         public void Distribute(TaskResults results)
         {
-            _moneyCollection.AcceptMoney(results.TaskOutcome.MoneyReward);
+            if(results.TaskOutcome.MoneyReward != 0)
+                _moneyCollection.AcceptMoney(results.TaskOutcome.MoneyReward);
+
+            if (results.TaskOutcome.ExtortedProperties.Any())
+            {
+                foreach (var property in results.TaskOutcome.ExtortedProperties)
+                {
+                    _propertyCollection.AcceptProperty(property);
+                }
+            }
             LastResults.Remove(results);
         }
     }

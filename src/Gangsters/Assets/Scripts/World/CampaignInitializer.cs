@@ -14,7 +14,7 @@ public class CampaignInitializer : QScript
 
         if (ServiceLocator.Get<ResultsManager>() == null)
         {
-            var resultsManager = new ResultsManager(gangManager);
+            var resultsManager = new ResultsManager(gangManager, gangManager);
             ServiceLocator.Register<ResultsManager>(resultsManager);
         }
     }
