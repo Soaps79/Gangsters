@@ -9,12 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e64b3d07b54b5a41b62d21e8cd13274, type: 3}
-  m_Name: prop_news_stand
+  m_Script: {fileID: 11500000, guid: 3223a2a16616e394c9e95e185cac7ac2, type: 3}
+  m_Name: tsk_collect
   m_EditorClassIdentifier: 
-  DisplayName: News Stand
-  PurchasePrice: 500
-  ExtortionValue: 50
-  ExtortionRequirements:
-  - _attribute: {fileID: 11400000, guid: 0fb5fb1405b38a141a0e6e2af5267834, type: 2}
-    Value: 1
+  Type: 3
+  Verb: Collect from
+  Chances:
+  - Status: 2
+    BasePercentChance: 100

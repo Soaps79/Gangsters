@@ -16,7 +16,7 @@ namespace Assets.Scripts.World
 
     public interface IPropertyCollection
     {
-        public void AcceptProperty(WorldPropertySO property);
+        public void ExtortProperty(WorldPropertySO property);
     }
 
     public class ResultsManager
@@ -47,7 +47,7 @@ namespace Assets.Scripts.World
             {
                 foreach (var property in results.TaskOutcome.ExtortedProperties)
                 {
-                    _propertyCollection.AcceptProperty(property);
+                    _propertyCollection.ExtortProperty(property);
                 }
             }
             LastResults.Remove(results);

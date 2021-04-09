@@ -38,7 +38,7 @@ namespace Assets.Scripts.Execution
             Crew = crew;
             TaskOutcome = new TaskOutcome
             {
-                MoneyReward = data.RewardMoney + data.ExtortedProperties.Sum(i => i.ExtortionValue),
+                MoneyReward = data.RewardMoney,
                 ExtortedProperties = data.ExtortedProperties
             };
 

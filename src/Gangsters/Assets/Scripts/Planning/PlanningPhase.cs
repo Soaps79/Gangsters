@@ -29,11 +29,16 @@ namespace Assets.Scripts.Planning
         {
             GangManager = ServiceLocator.Get<GangManager>();
             if (GangManager == null)
-            {
                 throw new UnityException("PlanningPhase could not find a GangManager");
-            }
 
             CheckForTestData();
+
+            var worldManager = ServiceLocator.Get<WorldManager>();
+            if (worldManager == null)
+                throw new UnityException("PlanningPhase could not find a WorldManager");
+
+            // TODO: distribute rewards before generating tasks, make UI react better
+            _availableWorldTasks.AddRange(worldManager.GetAvailableTasks());
             CreatePlanningTasks();
 
             InitializePhaseUI();
@@ -42,16 +47,16 @@ namespace Assets.Scripts.Planning
 
         private void InitializePhaseUI()
         {
-            ViewModelPrefab.Initialize(this);
-            ViewModelPrefab.gameObject.SetActive(true);
+            var viewModel = Instantiate(ViewModelPrefab, MainCanvas, false);
+            viewModel.Initialize(this);
         }
 
         private void CheckForTestData()
         {
             if (!UseTestData) return;
             
-            if(!_availableWorldTasks.Any())
-                _availableWorldTasks.AddRange(TestTasks);
+            //if(!_availableWorldTasks.Any())
+            //    _availableWorldTasks.AddRange(TestTasks);
             if(!GangManager.Crews.Any())
                 GangManager.Crews = GetTestCrews();
         }

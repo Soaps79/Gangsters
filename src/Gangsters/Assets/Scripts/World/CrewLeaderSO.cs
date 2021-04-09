@@ -1,25 +1,27 @@
 using System.Collections.Generic;
-using Assets.Scripts.World;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/CrewLeader")]
-public class CrewLeaderSO : ScriptableObject
+namespace Assets.Scripts.World
 {
-    public Sprite PortraitSprite;
+    [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/CrewLeader")]
+    public class CrewLeaderSO : ScriptableObject
+    {
+        public Sprite PortraitSprite;
 
-    [SerializeField]
-    private string _firstName;
-    public string FirstName => _firstName;
+        [SerializeField]
+        private string _firstName;
+        public string FirstName => _firstName;
 
-    [SerializeField]
-    private string _lastName;
-    public string LastName => _lastName;
+        [SerializeField]
+        private string _lastName;
+        public string LastName => _lastName;
 
-    [SerializeField]
-    private string _crewName;
-    public string CrewName => _crewName;
+        [SerializeField]
+        private string _crewName;
+        public string CrewName => _crewName;
 
-    public List<AttributeValuePair> BaseAttributes;
+        public List<AttributeValuePair> BaseAttributes;
 
-    public string FullName => $"{FirstName} {LastName}";
+        public string FullName => $"{FirstName} {LastName}";
+    }
 }

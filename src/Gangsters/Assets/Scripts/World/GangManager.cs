@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Assets.Scripts.World
 {
-    public class GangManager : IMoneyCollection, IPropertyCollection
+    public class GangManager : IMoneyCollection
     {
         public int Money { get; private set; }
         public List<Crew> Crews = new List<Crew>();
@@ -22,15 +22,6 @@ namespace Assets.Scripts.World
         {
             Money += amount;
             OnMoneyChanged?.Invoke();
-        }
-
-        public void AcceptProperty(WorldPropertySO property)
-        {
-            if (!ExtortedProperties.Contains(property))
-            {
-                ExtortedProperties.Add(property);
-                OnPropertiesChanged?.Invoke();
-            }
         }
     }
 }

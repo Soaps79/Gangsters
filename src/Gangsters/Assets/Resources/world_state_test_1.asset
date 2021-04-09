@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66be090be15e6df4d84124dcee3352f0, type: 3}
+  m_Name: world_state_test_1
+  m_EditorClassIdentifier: 
+  Properties:
+  - Status: 0
+    WorldProperty: {fileID: 11400000, guid: 23ee9621e759ac4429e742f960a41cad, type: 2}
+  - Status: 0
+    WorldProperty: {fileID: 11400000, guid: 401f502ce8827af49b552b6164d22a28, type: 2}
+  - Status: 0
+    WorldProperty: {fileID: 11400000, guid: 27b5814e7c5d6a94dac3d21d3ced220d, type: 2}
+  - Status: 0
+    WorldProperty: {fileID: 11400000, guid: 1ecf63d2efee323438a6f7ce87c490b2, type: 2}

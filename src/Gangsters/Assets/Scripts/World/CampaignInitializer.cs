@@ -1,21 +1,40 @@
-using Assets.Scripts.World;
+using System.Collections.Generic;
+using Messaging;
 using QGame;
 
-public class CampaignInitializer : QScript
+namespace Assets.Scripts.World
 {
-    public void Awake()
+    public class CampaignInitializer : QScript
     {
-        var gangManager = ServiceLocator.Get<GangManager>();
-        if(gangManager == null)
-        {
-            gangManager = new GangManager();
-            ServiceLocator.Register<GangManager>(gangManager);
-        }
+        public List<TaskTemplateSO> TaskTemplates;
 
-        if (ServiceLocator.Get<ResultsManager>() == null)
+        public WorldStateSO StartWorldState;
+
+        public void Awake()
         {
-            var resultsManager = new ResultsManager(gangManager, gangManager);
-            ServiceLocator.Register<ResultsManager>(resultsManager);
+            if(Locator.MessageHub == null)
+                ServiceLocator.Register<IMessageHub>(new MessageHub());
+
+            var gangManager = ServiceLocator.Get<GangManager>();
+            if(gangManager == null)
+            {
+                gangManager = new GangManager();
+                ServiceLocator.Register<GangManager>(gangManager);
+            }
+
+            var worldManager = ServiceLocator.Get<WorldManager>();
+            if (worldManager == null)
+            {
+                worldManager = new WorldManager(TaskTemplates);
+                worldManager.Initialize(StartWorldState);
+                ServiceLocator.Register<WorldManager>(worldManager);
+            }
+
+            if (ServiceLocator.Get<ResultsManager>() == null)
+            {
+                var resultsManager = new ResultsManager(gangManager, worldManager);
+                ServiceLocator.Register<ResultsManager>(resultsManager);
+            }
         }
     }
 }

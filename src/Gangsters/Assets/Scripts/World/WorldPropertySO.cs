@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.World
@@ -8,5 +9,6 @@ namespace Assets.Scripts.World
         public string DisplayName;
         public int PurchasePrice;
         public int ExtortionValue;
+        public List<AttributeValuePair> ExtortionRequirements;
     }
 }
