@@ -291,7 +291,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
 --- !u!114 &783021536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -304,10 +304,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -810,7 +810,6 @@ MonoBehaviour:
       Value: 1
     TaskOutcome:
       MoneyReward: 0
-      ExtortedProperties: []
   - TotalTime: 4
     DisplayName: Recruit Talent I
     Requirements:
@@ -818,7 +817,6 @@ MonoBehaviour:
       Value: 2
     TaskOutcome:
       MoneyReward: 0
-      ExtortedProperties: []
   - TotalTime: 2
     DisplayName: Recruit Talent II
     Requirements:
@@ -828,7 +826,6 @@ MonoBehaviour:
       Value: 1
     TaskOutcome:
       MoneyReward: 0
-      ExtortedProperties: []
   - TotalTime: 2
     DisplayName: Extort Property
     Requirements:
@@ -838,7 +835,6 @@ MonoBehaviour:
       Value: 3
     TaskOutcome:
       MoneyReward: 0
-      ExtortedProperties: []
   UseTestTasks: 0
   MainCanvas: {fileID: 783021538}
   ResultsListPrefab: {fileID: 1356074703062483679, guid: 0d3087bd2db864d44bcab7a52a1c59fb, type: 3}
