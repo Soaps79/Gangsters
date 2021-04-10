@@ -21,5 +21,13 @@ namespace Assets.Scripts
             if (result == null) result = go.AddComponent<T>();
             return result;
         }
+
+        public static void DestroyAllChildren(this GameObject go)
+        {
+            foreach (Transform child in go.transform)
+            {
+                Object.Destroy(child.gameObject);
+            }
+        }
     }
 }

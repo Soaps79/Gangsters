@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Assets.Scripts.World
@@ -25,6 +26,8 @@ namespace Assets.Scripts.World
         private readonly IMoneyCollection _moneyCollection;
         private readonly IPropertyCollection _propertyCollection;
 
+        public Action OnNextDistributionComplete;
+
         public ResultsManager(IMoneyCollection moneyCollection, IPropertyCollection propertyCollection)
         {
             _moneyCollection = moneyCollection;
@@ -50,7 +53,14 @@ namespace Assets.Scripts.World
                     _propertyCollection.ExtortProperty(property);
                 }
             }
+
             LastResults.Remove(results);
+
+            if (!LastResults.Any())
+            {
+                OnNextDistributionComplete?.Invoke();
+                OnNextDistributionComplete = null;
+            }
         }
     }
 }

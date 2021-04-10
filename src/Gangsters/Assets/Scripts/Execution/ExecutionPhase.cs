@@ -16,13 +16,15 @@ namespace Assets.Scripts.Execution
         public ExecutionPhaseViewModel ViewModel;
 
         public List<ExecutionTaskGroup> ExecutionTaskGroups;
-        private ExecutionTask _currentExecutionTask;
 
         public bool UseTestData;
         public ExecutionTask ExecutionTaskPrefab;
 
         public Canvas MainCanvas;
         public ResultsViewModel ResultsPrefab;
+
+        public bool WillWaitToStart;
+        public bool WillWaitToComplete;
 
         public GangManager GangManager { get; private set; }
 
@@ -39,7 +41,7 @@ namespace Assets.Scripts.Execution
         // Start is called before the first frame update
         void Start()
         {
-            //if (UseTestData)
+            //if (UseTestLeaders)
             //{
             //    foreach (var taskData in TestTasks)
             //    {
@@ -62,6 +64,9 @@ namespace Assets.Scripts.Execution
             }
 
             ViewModel.Initialize(this);
+
+            if(!WillWaitToStart)
+                StartTimer();
         }
 
         private void CreateExecutionTaskGroup(string crewName, List<PlannedTaskData> plannedTasks)
@@ -109,8 +114,14 @@ namespace Assets.Scripts.Execution
                     resultsManager.AddOutcome(worldTask.DisplayName, worldTask.TaskOutcome);
                 }
             }
-            var resultsViewModel = Instantiate<ResultsViewModel>(ResultsPrefab, MainCanvas.transform, false);
-            resultsViewModel.Initialize(this);
+
+            if (WillWaitToComplete)
+            {
+                var resultsViewModel = Instantiate<ResultsViewModel>(ResultsPrefab, MainCanvas.transform, false);
+                resultsViewModel.Initialize(this);
+            }
+            else
+                CompleteScene();
         }
 
         public void CompleteScene()

@@ -36,11 +36,7 @@ namespace Assets.Scripts.Execution
                 throw new UnityException();
 
             Crew = crew;
-            TaskOutcome = new TaskOutcome
-            {
-                MoneyReward = data.RewardMoney,
-                ExtortedProperties = data.ExtortedProperties
-            };
+            TaskOutcome = data.TaskOutcome;
 
             TotalTime = data.TotalTime;
             DisplayName = data.DisplayName;

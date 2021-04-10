@@ -799,43 +799,47 @@ MonoBehaviour:
   TestLeaders:
   - {fileID: 11400000, guid: 86527416f5e2ab34180b97d1271db847, type: 2}
   - {fileID: 11400000, guid: 576457d04489b4047bb212cf00d40b8c, type: 2}
+  UseTestLeaders: 1
   TestTasks:
   - TotalTime: 2
     DisplayName: Collect Protection
-    RewardMoney: 50
-    ExtortedProperties: []
     Requirements:
     - _attribute: {fileID: 11400000, guid: 8378dabc19102c947a9057a8512215fe, type: 2}
       Value: 1
     - _attribute: {fileID: 11400000, guid: 87effc6c3afd7de4b82e3e7d3fa84e61, type: 2}
       Value: 1
+    TaskOutcome:
+      MoneyReward: 0
+      ExtortedProperties: []
   - TotalTime: 4
     DisplayName: Recruit Talent I
-    RewardMoney: 0
-    ExtortedProperties: []
     Requirements:
     - _attribute: {fileID: 11400000, guid: 0fb5fb1405b38a141a0e6e2af5267834, type: 2}
       Value: 2
+    TaskOutcome:
+      MoneyReward: 0
+      ExtortedProperties: []
   - TotalTime: 2
     DisplayName: Recruit Talent II
-    RewardMoney: 0
-    ExtortedProperties: []
     Requirements:
     - _attribute: {fileID: 11400000, guid: 0fb5fb1405b38a141a0e6e2af5267834, type: 2}
       Value: 3
     - _attribute: {fileID: 11400000, guid: 87effc6c3afd7de4b82e3e7d3fa84e61, type: 2}
       Value: 1
+    TaskOutcome:
+      MoneyReward: 0
+      ExtortedProperties: []
   - TotalTime: 2
     DisplayName: Extort Property
-    RewardMoney: 0
-    ExtortedProperties:
-    - {fileID: 11400000, guid: 1ecf63d2efee323438a6f7ce87c490b2, type: 2}
     Requirements:
     - _attribute: {fileID: 11400000, guid: 0fb5fb1405b38a141a0e6e2af5267834, type: 2}
       Value: 1
     - _attribute: {fileID: 11400000, guid: 8378dabc19102c947a9057a8512215fe, type: 2}
       Value: 3
-  UseTestData: 1
+    TaskOutcome:
+      MoneyReward: 0
+      ExtortedProperties: []
+  UseTestTasks: 0
   MainCanvas: {fileID: 783021538}
   ResultsListPrefab: {fileID: 1356074703062483679, guid: 0d3087bd2db864d44bcab7a52a1c59fb, type: 3}
 --- !u!4 &2144102330

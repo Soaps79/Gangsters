@@ -8,8 +8,7 @@ namespace Assets.Scripts.World
     {
         public float TotalTime;
         public string DisplayName;
-        public int RewardMoney;
-        public List<WorldPropertySO> ExtortedProperties = new List<WorldPropertySO>();
         public List<AttributeValuePair> Requirements = new List<AttributeValuePair>();
+        public TaskOutcome TaskOutcome = new TaskOutcome();
     }
 }

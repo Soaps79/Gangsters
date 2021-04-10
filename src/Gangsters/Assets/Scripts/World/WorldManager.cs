@@ -34,16 +34,48 @@ namespace Assets.Scripts.World
                     if(baseChance == null) continue;
                     if (Random.value * 100 > baseChance.BasePercentChance) continue;
 
-                    switch (taskTemplate.Type)
+                    WorldTaskData task = null;
+                    if (TryGenerateTask(taskTemplate, propertyState.WorldProperty, out task))
                     {
-                        case TaskType.Extortion:
-                            list.Add(GenerateExtortionTask(taskTemplate, propertyState.WorldProperty));
-                            break;
+                        list.Add(task);
                     }
                 }
             }
 
             return list;
+        }
+
+        private static bool TryGenerateTask(TaskTemplateSO taskTemplate, WorldPropertySO property, out WorldTaskData task)
+        {
+            task = null;
+            var taskOutcome = GenerateTaskOutcome(taskTemplate, property);
+            if (taskOutcome == null) return false;
+
+            task = new WorldTaskData
+            {
+                DisplayName = $"{taskTemplate.Verb} {property.DisplayName}",
+                Requirements = property.ExtortionRequirements,
+                TaskOutcome = taskOutcome,
+                TotalTime = 2f
+            };
+            return true;
+        }
+
+        private static TaskOutcome GenerateTaskOutcome(TaskTemplateSO taskTemplate, WorldPropertySO property)
+        {
+            switch (taskTemplate.Type)
+            {
+                case TaskType.Extortion:
+                    return new TaskOutcome
+                    {
+                        ExtortedProperties = new List<WorldPropertySO> {property},
+                        MoneyReward = property.ExtortionValue,
+                    };
+                case TaskType.Collect:
+                    return new TaskOutcome {MoneyReward = property.ExtortionValue};
+                default:
+                    return null;
+            }
         }
 
         private static WorldTaskData GenerateExtortionTask(TaskTemplateSO taskTemplate, WorldPropertySO property)
@@ -52,8 +84,26 @@ namespace Assets.Scripts.World
             {
                 DisplayName = $"{taskTemplate.Verb} {property.DisplayName}",
                 Requirements = property.ExtortionRequirements,
-                ExtortedProperties = new List<WorldPropertySO> {property},
-                RewardMoney = property.ExtortionValue,
+                TaskOutcome = new TaskOutcome 
+                { 
+                    ExtortedProperties = new List<WorldPropertySO> {property},
+                    MoneyReward = property.ExtortionValue,
+                },
+                TotalTime = 2f
+            };
+            return task;
+        }
+
+        private static WorldTaskData GenerateCollectionTask(TaskTemplateSO taskTemplate, WorldPropertySO property)
+        {
+            var task = new WorldTaskData
+            {
+                DisplayName = $"{taskTemplate.Verb} {property.DisplayName}",
+                Requirements = property.ExtortionRequirements,
+                TaskOutcome = new TaskOutcome
+                {
+                    MoneyReward = property.ExtortionValue
+                },
                 TotalTime = 2f
             };
             return task;

@@ -24,12 +24,12 @@ namespace Assets.Scripts.Planning.UI
             _planningPhase = planningPhase;
             _planningPhase.GangManager.OnMoneyChanged += UpdateMoney;
             _planningPhase.GangManager.OnPropertiesChanged += UpdateProperties;
+            _planningPhase.OnTaskListUpdate += UpdateTaskViews;
 
             UpdateMoney();
             UpdateProperties();
          
             InitializeGangViews();
-            InitializeTaskViews();
         }
 
         private void UpdateProperties()
@@ -57,8 +57,9 @@ namespace Assets.Scripts.Planning.UI
             }
         }
 
-        private void InitializeTaskViews()
+        private void UpdateTaskViews()
         {
+            TaskListTransform.gameObject.DestroyAllChildren();
             foreach (var planningTask in _planningPhase.PlanningTasks)
             {
                 var viewModel = Instantiate(TaskPrefab, TaskListTransform, false);

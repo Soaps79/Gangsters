@@ -8,9 +8,9 @@ namespace Assets.Scripts.World
     {
         Unknown,
         Extortion,
-        Purchase,
         Collect,
-        Recruit
+        //Purchase,
+        //Recruit
     }
 
     [Serializable]

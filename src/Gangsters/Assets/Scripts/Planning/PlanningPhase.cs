@@ -15,15 +15,20 @@ namespace Assets.Scripts.Planning
         public PlanningPhaseViewModel ViewModelPrefab;
 
         public List<CrewLeaderSO> TestLeaders;
+        public bool UseTestLeaders;
+        
         public List<WorldTaskData> TestTasks;
-        public bool UseTestData;
+        public bool UseTestTasks;
 
         public Transform MainCanvas;
         public ResultsListViewModel ResultsListPrefab;
         
         public GangManager GangManager { get; private set; }
         public List<PlanningTask> PlanningTasks = new List<PlanningTask>();
+        public Action OnTaskListUpdate;
+
         private readonly List<WorldTaskData> _availableWorldTasks = new List<WorldTaskData>();
+        private WorldManager _worldManager;
 
         public void Start()
         {
@@ -31,18 +36,35 @@ namespace Assets.Scripts.Planning
             if (GangManager == null)
                 throw new UnityException("PlanningPhase could not find a GangManager");
 
-            CheckForTestData();
+            CheckForTestCrews();
 
-            var worldManager = Locator.WorldManager;
-            if (worldManager == null)
+            _worldManager = Locator.WorldManager;
+            if (_worldManager == null)
                 throw new UnityException("PlanningPhase could not find a WorldManager");
 
-            // TODO: distribute rewards before generating tasks, make UI react better
-            _availableWorldTasks.AddRange(worldManager.GetAvailableTasks());
-            CreatePlanningTasks();
-
             InitializePhaseUI();
-            CheckForResults();
+
+            if (CheckForResults())
+                ServiceLocator.Get<ResultsManager>().OnNextDistributionComplete += () =>
+                {
+                    OnNextUpdate += ClearAndCreatePlanningTasks;
+                };
+            else
+                ClearAndCreatePlanningTasks();
+        }
+
+        private bool CheckForResults()
+        {
+            var resultsManager = ServiceLocator.Get<ResultsManager>();
+            if (resultsManager.HasResultsToBeProcessed)
+            {
+                var viewModel = Instantiate(ResultsListPrefab, MainCanvas, false);
+                viewModel.Initialize(resultsManager);
+                viewModel.OnComplete += OnAcceptResultsComplete;
+                return true;
+            }
+
+            return false;
         }
 
         private void InitializePhaseUI()
@@ -51,22 +73,32 @@ namespace Assets.Scripts.Planning
             viewModel.Initialize(this);
         }
 
-        private void CheckForTestData()
+        private void CheckForTestCrews()
         {
-            if (!UseTestData) return;
+            if (!UseTestLeaders) return;
             
-            //if(!_availableWorldTasks.Any())
-            //    _availableWorldTasks.AddRange(TestTasks);
+            
             if(!GangManager.Crews.Any())
                 GangManager.Crews = GetTestCrews();
         }
 
-        private void CreatePlanningTasks()
+        private void ClearAndCreatePlanningTasks()
         {
+            _availableWorldTasks.Clear();
+            if (UseTestTasks)
+            {
+                //if(!_availableWorldTasks.Any())
+                //    _availableWorldTasks.AddRange(TestTasks);
+            }
+
+            _availableWorldTasks.AddRange(_worldManager.GetAvailableTasks());
+
+            PlanningTasks.Clear();
             foreach (var taskData in _availableWorldTasks)
             {
                 PlanningTasks.Add(new PlanningTask(taskData));
             }
+            OnTaskListUpdate?.Invoke();
         }
 
         private List<Crew> GetTestCrews()
@@ -81,21 +113,9 @@ namespace Assets.Scripts.Planning
             return crews;
         }
 
-        private void CheckForResults()
-        {
-            var resultsManager = ServiceLocator.Get<ResultsManager>();
-            if (resultsManager.HasResultsToBeProcessed)
-            {
-                var viewModel = Instantiate(ResultsListPrefab, MainCanvas, false);
-                viewModel.Initialize(resultsManager);
-                viewModel.OnComplete += OnAcceptResultsComplete;
-            }
-        }
-
         private void OnAcceptResultsComplete(ResultsListViewModel viewModel)
         {
-            viewModel.gameObject.SetActive(false);
-            InitializePhaseUI();
+            Destroy(viewModel.gameObject);
         }
 
         private void PrepareForExecutionPhase()
