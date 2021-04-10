@@ -23,8 +23,7 @@ namespace Assets.Scripts.Planning.UI
         {
             _planningPhase = planningPhase;
             _planningPhase.GangManager.OnMoneyChanged += UpdateMoney;
-            //_planningPhase.WorldManager.
-            _planningPhase.GangManager.OnPropertiesChanged += UpdateProperties;
+            _planningPhase.WorldManager.OnPropertiesChanged += UpdateProperties;
             _planningPhase.OnTaskListUpdate += UpdateTaskViews;
 
             UpdateMoney();
@@ -36,9 +35,13 @@ namespace Assets.Scripts.Planning.UI
         private void UpdateProperties()
         {
             var text = "Extorted Properties:\n";
-            if (_planningPhase.GangManager.ExtortedProperties.Any())
+
+            var extortedProperties =
+                _planningPhase.WorldManager.Properties.Where(i => i.Status == WorldPropertyStatus.Extorted);
+
+            if (extortedProperties.Any())
             {
-                text += string.Join("\n",  _planningPhase.GangManager.ExtortedProperties.Select(i => i.DisplayName));
+                text += string.Join("\n",  extortedProperties.Select(i => i.WorldProperty.DisplayName));
             }
 
             PropertiesText.text = text;

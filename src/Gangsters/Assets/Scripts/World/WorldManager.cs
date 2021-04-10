@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.World
 {
@@ -8,6 +10,8 @@ namespace Assets.Scripts.World
     {
         public List<WorldPropertyState> Properties = new List<WorldPropertyState>();
         private readonly List<TaskTemplateSO> _taskTemplates;
+
+        public Action OnPropertiesChanged;
 
         public WorldManager(List<TaskTemplateSO> taskTemplates)
         {
@@ -85,8 +89,15 @@ namespace Assets.Scripts.World
         public void UpdateProperty(WorldPropertySO property, WorldPropertyStatus status)
         {
             var propertyState = Properties.FirstOrDefault(i => i.WorldProperty == property);
-            if (propertyState != null)
-                propertyState.Status = status;
+            if (propertyState == null)
+            {
+                propertyState = new WorldPropertyState {WorldProperty = property, Status = status};
+                Properties.Add(propertyState);
+                Debug.Log($"WorldManager update called on unknown Property {property.DisplayName}");
+            }
+
+            propertyState.Status = status;
+            OnPropertiesChanged?.Invoke();
         }
     }
 }

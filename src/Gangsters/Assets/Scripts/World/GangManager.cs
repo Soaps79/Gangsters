@@ -8,10 +8,8 @@ namespace Assets.Scripts.World
     {
         public int Money { get; private set; }
         public List<Crew> Crews = new List<Crew>();
-        public List<WorldPropertySO> ExtortedProperties = new List<WorldPropertySO>();
 
         public Action OnMoneyChanged;
-        public Action OnPropertiesChanged;
 
         public List<Crew> GetAbleCrews(List<AttributeValuePair> requirements)
         {
