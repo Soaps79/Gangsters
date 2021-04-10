@@ -50,7 +50,7 @@ namespace Assets.Scripts.Execution
             var startData = ServiceLocator.Get<ExecutionStartData>();
             if (startData != null)
             {
-                GangManager = ServiceLocator.Get<GangManager>();
+                GangManager = Locator.GangManager;
 
                 var tasksByCrew = startData.PlannedTasks
                     .GroupBy(i => i.CrewId);

@@ -27,13 +27,13 @@ namespace Assets.Scripts.Planning
 
         public void Start()
         {
-            GangManager = ServiceLocator.Get<GangManager>();
+            GangManager = Locator.GangManager;
             if (GangManager == null)
                 throw new UnityException("PlanningPhase could not find a GangManager");
 
             CheckForTestData();
 
-            var worldManager = ServiceLocator.Get<WorldManager>();
+            var worldManager = Locator.WorldManager;
             if (worldManager == null)
                 throw new UnityException("PlanningPhase could not find a WorldManager");
 

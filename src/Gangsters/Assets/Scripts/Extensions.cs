@@ -1,16 +1,25 @@
-﻿using Messaging;
+﻿using Assets.Scripts.World;
+using Messaging;
 using QGame;
+using UnityEngine;
 
 namespace Assets.Scripts
 {
-	// wraps ServiceLocator for easy access within project
+    // wraps ServiceLocator for easy access within project
     public static class Locator
     {
-        //public static ISerializationHub Serialization
-        //{
-        //    get { return ServiceLocator.Get<ISerializationHub>(); }
-        //}
-
         public static IMessageHub MessageHub => ServiceLocator.Get<IMessageHub>();
+        public static GangManager GangManager => ServiceLocator.Get<GangManager>();
+        public static WorldManager WorldManager => ServiceLocator.Get<WorldManager>();
+    }
+
+    public static class GameObjectExtensions
+    {
+        public static T GetOrAddComponent<T>(this GameObject go) where T : Component
+        {
+            var result = go.GetComponent<T>();
+            if (result == null) result = go.AddComponent<T>();
+            return result;
+        }
     }
 }

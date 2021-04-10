@@ -15,14 +15,14 @@ namespace Assets.Scripts.World
             if(Locator.MessageHub == null)
                 ServiceLocator.Register<IMessageHub>(new MessageHub());
 
-            var gangManager = ServiceLocator.Get<GangManager>();
+            var gangManager = Locator.GangManager;
             if(gangManager == null)
             {
                 gangManager = new GangManager();
                 ServiceLocator.Register<GangManager>(gangManager);
             }
 
-            var worldManager = ServiceLocator.Get<WorldManager>();
+            var worldManager = Locator.WorldManager;
             if (worldManager == null)
             {
                 worldManager = new WorldManager(TaskTemplates);
