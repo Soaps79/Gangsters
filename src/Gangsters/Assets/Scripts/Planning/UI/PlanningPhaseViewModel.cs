@@ -23,6 +23,7 @@ namespace Assets.Scripts.Planning.UI
         {
             _planningPhase = planningPhase;
             _planningPhase.GangManager.OnMoneyChanged += UpdateMoney;
+            //_planningPhase.WorldManager.
             _planningPhase.GangManager.OnPropertiesChanged += UpdateProperties;
             _planningPhase.OnTaskListUpdate += UpdateTaskViews;
 

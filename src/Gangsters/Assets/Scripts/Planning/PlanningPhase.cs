@@ -28,7 +28,7 @@ namespace Assets.Scripts.Planning
         public Action OnTaskListUpdate;
 
         private readonly List<WorldTaskData> _availableWorldTasks = new List<WorldTaskData>();
-        private WorldManager _worldManager;
+        public WorldManager WorldManager { get; private set; }
 
         public void Start()
         {
@@ -38,8 +38,8 @@ namespace Assets.Scripts.Planning
 
             CheckForTestCrews();
 
-            _worldManager = Locator.WorldManager;
-            if (_worldManager == null)
+            WorldManager = Locator.WorldManager;
+            if (WorldManager == null)
                 throw new UnityException("PlanningPhase could not find a WorldManager");
 
             InitializePhaseUI();
@@ -91,7 +91,7 @@ namespace Assets.Scripts.Planning
                 //    _availableWorldTasks.AddRange(TestTasks);
             }
 
-            _availableWorldTasks.AddRange(_worldManager.GetAvailableTasks());
+            _availableWorldTasks.AddRange(WorldManager.GetAvailableTasks());
 
             PlanningTasks.Clear();
             foreach (var taskData in _availableWorldTasks)

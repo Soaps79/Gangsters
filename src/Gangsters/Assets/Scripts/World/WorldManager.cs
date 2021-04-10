@@ -68,7 +68,11 @@ namespace Assets.Scripts.World
                 case TaskType.Extortion:
                     return new TaskOutcome
                     {
-                        ExtortedProperties = new List<WorldPropertySO> {property},
+                        PropertyUpdates = new List<PropertyStatusPair> {
+                            new PropertyStatusPair
+                            {
+                                Property = property,Status = WorldPropertyStatus.Extorted
+                            } },
                         MoneyReward = property.ExtortionValue,
                     };
                 case TaskType.Collect:
@@ -78,42 +82,11 @@ namespace Assets.Scripts.World
             }
         }
 
-        private static WorldTaskData GenerateExtortionTask(TaskTemplateSO taskTemplate, WorldPropertySO property)
-        {
-            var task = new WorldTaskData
-            {
-                DisplayName = $"{taskTemplate.Verb} {property.DisplayName}",
-                Requirements = property.ExtortionRequirements,
-                TaskOutcome = new TaskOutcome 
-                { 
-                    ExtortedProperties = new List<WorldPropertySO> {property},
-                    MoneyReward = property.ExtortionValue,
-                },
-                TotalTime = 2f
-            };
-            return task;
-        }
-
-        private static WorldTaskData GenerateCollectionTask(TaskTemplateSO taskTemplate, WorldPropertySO property)
-        {
-            var task = new WorldTaskData
-            {
-                DisplayName = $"{taskTemplate.Verb} {property.DisplayName}",
-                Requirements = property.ExtortionRequirements,
-                TaskOutcome = new TaskOutcome
-                {
-                    MoneyReward = property.ExtortionValue
-                },
-                TotalTime = 2f
-            };
-            return task;
-        }
-
-        public void ExtortProperty(WorldPropertySO property)
+        public void UpdateProperty(WorldPropertySO property, WorldPropertyStatus status)
         {
             var propertyState = Properties.FirstOrDefault(i => i.WorldProperty == property);
             if (propertyState != null)
-                propertyState.Status = WorldPropertyStatus.Extorted;
+                propertyState.Status = status;
         }
     }
 }

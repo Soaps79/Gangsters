@@ -17,7 +17,7 @@ namespace Assets.Scripts.World
 
     public interface IPropertyCollection
     {
-        public void ExtortProperty(WorldPropertySO property);
+        public void UpdateProperty(WorldPropertySO property, WorldPropertyStatus status);
     }
 
     public class ResultsManager
@@ -46,11 +46,11 @@ namespace Assets.Scripts.World
             if(results.TaskOutcome.MoneyReward != 0)
                 _moneyCollection.AcceptMoney(results.TaskOutcome.MoneyReward);
 
-            if (results.TaskOutcome.ExtortedProperties.Any())
+            if (results.TaskOutcome.PropertyUpdates.Any())
             {
-                foreach (var property in results.TaskOutcome.ExtortedProperties)
+                foreach (var pair in results.TaskOutcome.PropertyUpdates)
                 {
-                    _propertyCollection.ExtortProperty(property);
+                    _propertyCollection.UpdateProperty(pair.Property, pair.Status);
                 }
             }
 

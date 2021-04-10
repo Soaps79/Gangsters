@@ -45,11 +45,10 @@ namespace Assets.Scripts.Planning.UI
 
         private void SetExtortionRewards()
         {
-            if (!_taskResults.TaskOutcome.ExtortedProperties.Any()) return;
+            if (!_taskResults.TaskOutcome.PropertyUpdates.Any()) return;
 
-            var money = _taskResults.TaskOutcome.ExtortedProperties.Sum(i => i.ExtortionValue);
-            DisplayText.text += _taskResults.TaskOutcome.ExtortedProperties.Aggregate("  Extorted Properties: ",
-                (s, p) => s += $"{p.DisplayName}, ");
+            DisplayText.text += _taskResults.TaskOutcome.PropertyUpdates.Aggregate(
+                "", (current, pair) => current + $"{pair.Property.DisplayName} : {pair.Status}     ");
         }
 
         public void BeginFadeOut()
