@@ -75,12 +75,24 @@ namespace Assets.Scripts.World
                         PropertyUpdates = new List<PropertyStatusPair> {
                             new PropertyStatusPair
                             {
-                                Property = property,Status = WorldPropertyStatus.Extorted
+                                Property = property, Status = WorldPropertyStatus.Extorted
                             } },
                         MoneyReward = property.ExtortionValue,
                     };
+
                 case TaskType.Collect:
                     return new TaskOutcome {MoneyReward = property.ExtortionValue};
+
+                case TaskType.Purchase:
+                    return new TaskOutcome
+                    {
+                        PropertyUpdates = new List<PropertyStatusPair> {
+                            new PropertyStatusPair
+                            {
+                                Property = property, Status = WorldPropertyStatus.Owned
+                            } }
+                    };
+
                 default:
                     return null;
             }

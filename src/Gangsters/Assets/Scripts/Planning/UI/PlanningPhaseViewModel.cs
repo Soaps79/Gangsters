@@ -32,24 +32,33 @@ namespace Assets.Scripts.Planning.UI
             InitializeGangViews();
         }
 
-        private void UpdateProperties()
-        {
-            var text = "Extorted Properties:\n";
-
-            var extortedProperties =
-                _planningPhase.WorldManager.Properties.Where(i => i.Status == WorldPropertyStatus.Extorted);
-
-            if (extortedProperties.Any())
-            {
-                text += string.Join("\n",  extortedProperties.Select(i => i.WorldProperty.DisplayName));
-            }
-
-            PropertiesText.text = text;
-        }
-
         private void UpdateMoney()
         {
             MoneyText.text = $"${_planningPhase.GangManager.Money}";
+        }
+
+        private readonly WorldPropertyStatus[] _monitoredStatuses = 
+            {WorldPropertyStatus.Extorted, WorldPropertyStatus.Owned};
+
+        private void UpdateProperties()
+        {
+            var text = "";
+            foreach (var status in _monitoredStatuses)
+            {
+                text += $"{status}:\n";
+
+                var extortedProperties =
+                    _planningPhase.WorldManager.Properties.Where(i => i.Status == status);
+
+                if (extortedProperties.Any())
+                {
+                    text += string.Join("\n", extortedProperties.Select(i => i.WorldProperty.DisplayName));
+                }
+
+                text += "\n\n";
+            }
+
+            PropertiesText.text = text;
         }
 
         private void InitializeGangViews()
