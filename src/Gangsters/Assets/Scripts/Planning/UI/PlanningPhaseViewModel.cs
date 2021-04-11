@@ -13,8 +13,7 @@ namespace Assets.Scripts.Planning.UI
         public CrewViewModel CrewPrefab;
         public Transform CrewListTransform;
 
-        public PlanningTaskViewModel TaskPrefab;
-        public Transform TaskListTransform;
+        public PlanningTaskListView TaskListView;
         
         public TMP_Text MoneyText;
         public TMP_Text PropertiesText;
@@ -24,7 +23,9 @@ namespace Assets.Scripts.Planning.UI
             _planningPhase = planningPhase;
             _planningPhase.GangManager.OnMoneyChanged += UpdateMoney;
             _planningPhase.WorldManager.OnPropertiesChanged += UpdateProperties;
-            _planningPhase.OnTaskListUpdate += UpdateTaskViews;
+
+            _planningPhase.OnTaskListUpdate += () =>
+                TaskListView.UpdateList(_planningPhase.PlanningTasks);
 
             UpdateMoney();
             UpdateProperties();
@@ -67,16 +68,6 @@ namespace Assets.Scripts.Planning.UI
             {
                 var viewModel = Instantiate(CrewPrefab, CrewListTransform, false);
                 viewModel.Initialize(crew);
-            }
-        }
-
-        private void UpdateTaskViews()
-        {
-            TaskListTransform.gameObject.DestroyAllChildren();
-            foreach (var planningTask in _planningPhase.PlanningTasks)
-            {
-                var viewModel = Instantiate(TaskPrefab, TaskListTransform, false);
-                viewModel.Initialize(planningTask, _planningPhase.GangManager.GetAbleCrews(planningTask.WorldTaskData.Requirements));
             }
         }
 

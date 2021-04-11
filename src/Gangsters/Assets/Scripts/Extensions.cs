@@ -1,6 +1,8 @@
-﻿using Assets.Scripts.World;
+﻿using System.Collections.Generic;
+using Assets.Scripts.World;
 using Messaging;
 using QGame;
+using UIWidgets;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -28,6 +30,14 @@ namespace Assets.Scripts
             {
                 Object.Destroy(child.gameObject);
             }
+        }
+    }
+
+    public static class Extensions
+    {
+        public static ObservableList<T> ToObservableList<T>(this IEnumerable<T> enumerable, bool observeItems = true)
+        {
+            return new ObservableList<T>(enumerable, observeItems);
         }
     }
 }

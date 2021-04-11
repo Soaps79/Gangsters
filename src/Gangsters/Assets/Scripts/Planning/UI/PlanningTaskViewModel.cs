@@ -3,12 +3,19 @@ using System.Linq;
 using Assets.Scripts.World;
 using QGame;
 using TMPro;
+using UIWidgets;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.Planning.UI
 {
-    public class PlanningTaskViewModel : QScript
+    public class AssignablePlanningTask
+    {
+        public PlanningTask Task;
+        public List<Crew> AvailableCrews;
+    }
+
+    public class PlanningTaskViewModel : ListViewItem, IViewData<AssignablePlanningTask>
     {
         public TMP_Dropdown Dropdown;
         public TMP_Text TaskNameText;
@@ -16,6 +23,11 @@ namespace Assets.Scripts.Planning.UI
         private PlanningTask _planningTask;
         private const string _emptySelectionText = "None";
         public Toggle ReadyToggle;
+
+        public void SetData(AssignablePlanningTask assignableTask)
+        {
+            Initialize(assignableTask.Task, assignableTask.AvailableCrews);
+        }
 
         public void Initialize(PlanningTask planningTask, List<Crew> availableCrews)
         {

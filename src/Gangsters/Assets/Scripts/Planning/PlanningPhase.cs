@@ -24,7 +24,7 @@ namespace Assets.Scripts.Planning
         public ResultsListViewModel ResultsListPrefab;
         
         public GangManager GangManager { get; private set; }
-        public List<PlanningTask> PlanningTasks = new List<PlanningTask>();
+        public List<AssignablePlanningTask> PlanningTasks = new List<AssignablePlanningTask>();
         public Action OnTaskListUpdate;
 
         private readonly List<WorldTaskData> _availableWorldTasks = new List<WorldTaskData>();
@@ -96,7 +96,11 @@ namespace Assets.Scripts.Planning
             PlanningTasks.Clear();
             foreach (var taskData in _availableWorldTasks)
             {
-                PlanningTasks.Add(new PlanningTask(taskData));
+                PlanningTasks.Add(new AssignablePlanningTask
+                {
+                    Task = new PlanningTask(taskData), 
+                    AvailableCrews = GangManager.GetAbleCrews(taskData.Requirements)
+                });
             }
             OnTaskListUpdate?.Invoke();
         }
@@ -121,12 +125,12 @@ namespace Assets.Scripts.Planning
         private void PrepareForExecutionPhase()
         {
             var executionData = new ExecutionStartData();
-            foreach (var planningTask in PlanningTasks.Where(i => i.IsComplete))
+            foreach (var planningTask in PlanningTasks.Where(i => i.Task.IsComplete))
             {
                 var plannedData = new PlannedTaskData
                 {
-                    CrewId = planningTask.SelectedCrew.Id,
-                    WorldTaskData = planningTask.WorldTaskData
+                    CrewId = planningTask.Task.SelectedCrew.Id,
+                    WorldTaskData = planningTask.Task.WorldTaskData
                 };
                 executionData.PlannedTasks.Add(plannedData);
             }
