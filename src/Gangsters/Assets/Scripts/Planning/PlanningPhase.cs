@@ -139,6 +139,8 @@ namespace Assets.Scripts.Planning
                 executionData.PlannedTasks.Add(plannedData);
             }
             ServiceLocator.Register<ExecutionStartData>(executionData);
+
+            GangManager.Wallet.ClearReservation();
         }
 
         public void StartExecutionPhase()

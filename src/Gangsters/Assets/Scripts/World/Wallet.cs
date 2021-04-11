@@ -23,6 +23,12 @@ namespace Assets.Scripts.World
             RecalcAvailableMoney();
         }
 
+        public void ClearReservation()
+        {
+            _totalReserved = 0;
+            RecalcAvailableMoney();
+        }
+
         private void RecalcAvailableMoney()
         {
             var last = AvailableMoney;
