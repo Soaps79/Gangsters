@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace Assets.Scripts.World
@@ -7,8 +6,6 @@ namespace Assets.Scripts.World
     public class GangManager
     {
         public List<Crew> Crews = new List<Crew>();
-
-        public Action OnMoneyChanged;
 
         public Wallet Wallet { get; } = new Wallet();
 

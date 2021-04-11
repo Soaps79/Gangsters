@@ -60,9 +60,21 @@ namespace Assets.Scripts.World
                 DisplayName = $"{taskTemplate.Verb} {property.DisplayName}",
                 Requirements = property.ExtortionRequirements,
                 TaskOutcome = taskOutcome,
-                TotalTime = 2f
+                TotalTime = 2f,
+                Cost = GenerateCost(taskTemplate, property)
             };
             return true;
+        }
+
+        private static int GenerateCost(TaskTemplateSO taskTemplate, WorldPropertySO property)
+        {
+            switch (taskTemplate.Type)
+            {
+                case TaskType.Purchase:
+                    return property.PurchasePrice;
+            }
+
+            return 0;
         }
 
         private static TaskOutcome GenerateTaskOutcome(TaskTemplateSO taskTemplate, WorldPropertySO property)

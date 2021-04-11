@@ -21,7 +21,7 @@ namespace Assets.Scripts.Planning.UI
         public void Initialize(PlanningPhase planningPhase)
         {
             _planningPhase = planningPhase;
-            _planningPhase.GangManager.OnMoneyChanged += UpdateMoney;
+            _planningPhase.GangManager.Wallet.OnMoneyChanged += UpdateMoney;
             _planningPhase.WorldManager.OnPropertiesChanged += UpdateProperties;
 
             _planningPhase.OnTaskListUpdate += () =>
@@ -73,7 +73,7 @@ namespace Assets.Scripts.Planning.UI
 
         public void OnDestroy()
         {
-            _planningPhase.GangManager.OnMoneyChanged -= UpdateMoney;
+            _planningPhase.GangManager.Wallet.OnMoneyChanged -= UpdateMoney;
         }
     }
 }
