@@ -24,8 +24,8 @@ namespace Assets.Scripts.Planning.UI
             _planningPhase.GangManager.Wallet.OnMoneyChanged += UpdateMoney;
             _planningPhase.WorldManager.OnPropertiesChanged += UpdateProperties;
 
-            _planningPhase.OnTaskListUpdate += () =>
-                TaskListView.UpdateList(_planningPhase.PlanningTasks);
+            _planningPhase.TaskTracker.OnTaskListUpdated += () =>
+                TaskListView.UpdateList(_planningPhase.TaskTracker.AllTasks);
 
             UpdateMoney();
             UpdateProperties();

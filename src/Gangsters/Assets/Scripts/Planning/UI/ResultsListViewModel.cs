@@ -24,7 +24,10 @@ namespace Assets.Scripts.Planning.UI
                 viewModel.OnComplete += () =>
                 {
                     if (!_resultsManager.HasResultsToBeProcessed)
+                    {
                         OnComplete?.Invoke(this);
+                        Destroy(gameObject);
+                    }
                 };
             }
         }

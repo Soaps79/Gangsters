@@ -9,39 +9,41 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.Planning.UI
 {
-    public class AssignablePlanningTask
-    {
-        public PlanningTask Task;
-        public List<Crew> AvailableCrews;
-    }
+    
 
-    public class PlanningTaskViewModel : ListViewItem, IViewData<AssignablePlanningTask>
+    public class PlanningTaskViewModel : ListViewItem, IViewData<AssignableTask>
     {
         public TMP_Dropdown Dropdown;
         public TMP_Text TaskNameText;
-        private List<Crew> AvailableCrews;
-        private PlanningTask _planningTask;
         private const string _emptySelectionText = "None";
         public Toggle ReadyToggle;
+        private AssignableTask _assignableTask;
 
-        public void SetData(AssignablePlanningTask assignableTask)
+        public void SetData(AssignableTask assignableTask)
         {
-            Initialize(assignableTask.Task, assignableTask.AvailableCrews);
+            Initialize(assignableTask);
         }
 
-        public void Initialize(PlanningTask planningTask, List<Crew> availableCrews)
+        public void Initialize(AssignableTask assignableTask)
         {
-            AvailableCrews = availableCrews;
-            _planningTask = planningTask;
+            _assignableTask = assignableTask;
+            _assignableTask.OnIsAssignableUpdated += UpdateReadyToggle;
+            _assignableTask.OnAvailableCrewUpdated += SetDropdownOptions;
             
-            TaskNameText.text = $"{_planningTask.DisplayName} : ${_planningTask.WorldTaskData.TaskOutcome.MoneyReward}";
+            TaskNameText.text = $"{_assignableTask.Task.DisplayName} : ${_assignableTask.Task.TaskOutcome.MoneyReward}";
+            Dropdown.onValueChanged.AddListener(OnDropdownSelectionChanged);
+            
+            SetDropdownOptions();
+            UpdateReadyToggle();
+        }
+
+        private void SetDropdownOptions()
+        {
             Dropdown.options.Add(new TMP_Dropdown.OptionData(_emptySelectionText));
-            foreach (var availableCrew in AvailableCrews)
+            foreach (var availableCrew in _assignableTask.AvailableCrews)
             {
                 Dropdown.options.Add(new TMP_Dropdown.OptionData(availableCrew.CrewName));
             }
-            Dropdown.onValueChanged.AddListener(OnDropdownSelectionChanged);
-            UpdateReadyToggle();
         }
 
         private void OnDropdownSelectionChanged(int arg0)
@@ -49,14 +51,14 @@ namespace Assets.Scripts.Planning.UI
             var crewName = Dropdown.options[arg0].text;
             if (crewName == _emptySelectionText)
             {
-                _planningTask.SetCrew(null);
+                _assignableTask.AssignedCrew = null;
             }
             else
             {
-                var crew = AvailableCrews.FirstOrDefault(i => i.CrewName == crewName);
+                var crew = _assignableTask.AvailableCrews.FirstOrDefault(i => i.CrewName == crewName);
                 if (crew == null)
                     throw new UnityException("Invalid crew selected from dropdown");
-                _planningTask.SetCrew(crew);
+                _assignableTask.SetCrew(crew);
             }
 
             UpdateReadyToggle();
@@ -64,7 +66,7 @@ namespace Assets.Scripts.Planning.UI
 
         private void UpdateReadyToggle()
         {
-            ReadyToggle.isOn = _planningTask.SelectedCrew != null;
+            ReadyToggle.isOn = _assignableTask.IsReady;
         }
     }
 }

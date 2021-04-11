@@ -25,10 +25,12 @@ namespace Assets.Scripts.Planning
         public ResultsListViewModel ResultsListPrefab;
         
         public GangManager GangManager { get; private set; }
-        public List<AssignablePlanningTask> PlanningTasks = new List<AssignablePlanningTask>();
-        public Action OnTaskListUpdate;
 
-        private readonly List<WorldTaskData> _availableWorldTasks = new List<WorldTaskData>();
+        public TaskTracker TaskTracker { get; private set; }
+        //public List<AssignableTask> PlanningTasks = new List<AssignableTask>();
+        //public Action OnTaskListUpdate;
+
+        //private readonly List<WorldTaskData> _availableWorldTasks = new List<WorldTaskData>();
         public WorldManager WorldManager { get; private set; }
 
         public void Start()
@@ -43,15 +45,18 @@ namespace Assets.Scripts.Planning
             if (WorldManager == null)
                 throw new UnityException("PlanningPhase could not find a WorldManager");
 
+            TaskTracker = new TaskTracker();
+            TaskTracker.Initialize(WorldManager.TaskTemplates, GangManager, WorldManager);
+
             InitializePhaseUI();
 
             if (CheckForResults())
                 ServiceLocator.Get<ResultsManager>().OnNextDistributionComplete += () =>
                 {
-                    OnNextUpdate += ClearAndCreatePlanningTasks;
+                    OnNextUpdate += GenerateTasks;
                 };
             else
-                ClearAndCreatePlanningTasks();
+                GenerateTasks();
         }
 
         private bool CheckForResults()
@@ -61,7 +66,6 @@ namespace Assets.Scripts.Planning
             {
                 var viewModel = Instantiate(ResultsListPrefab, MainCanvas, false);
                 viewModel.Initialize(resultsManager);
-                viewModel.OnComplete += OnAcceptResultsComplete;
                 return true;
             }
 
@@ -83,27 +87,28 @@ namespace Assets.Scripts.Planning
                 GangManager.Crews = GetTestCrews();
         }
 
-        private void ClearAndCreatePlanningTasks()
+        private void GenerateTasks()
         {
-            _availableWorldTasks.Clear();
+            
+            TaskTracker.GenerateTasks();
+
             if (UseTestTasks)
             {
-                //if(!_availableWorldTasks.Any())
-                //    _availableWorldTasks.AddRange(TestTasks);
+                // add to tracker
             }
 
-            _availableWorldTasks.AddRange(WorldManager.GetAvailableTasks());
+            //_availableWorldTasks.AddRange(WorldManager.GetAvailableTasks());
 
-            PlanningTasks.Clear();
-            foreach (var taskData in _availableWorldTasks)
-            {
-                PlanningTasks.Add(new AssignablePlanningTask
-                {
-                    Task = new PlanningTask(taskData), 
-                    AvailableCrews = GangManager.GetAbleCrews(taskData.Requirements)
-                });
-            }
-            OnTaskListUpdate?.Invoke();
+            //PlanningTasks.Clear();
+            //foreach (var taskData in _availableWorldTasks)
+            //{
+            //    PlanningTasks.Add(new AssignableTask
+            //    {
+            //        Task = new PlanningTask(taskData), 
+            //        AvailableCrews = GangManager.GetAbleCrews(taskData.Requirements)
+            //    });
+            //}
+            //OnTaskListUpdate?.Invoke();
         }
 
         private List<Crew> GetTestCrews()
@@ -118,23 +123,18 @@ namespace Assets.Scripts.Planning
             return crews;
         }
 
-        private void OnAcceptResultsComplete(ResultsListViewModel viewModel)
-        {
-            Destroy(viewModel.gameObject);
-        }
-
         private void PrepareForExecutionPhase()
         {
             var executionData = new ExecutionStartData();
-            foreach (var planningTask in PlanningTasks.Where(i => i.Task.IsComplete))
+            foreach (var planningTask in TaskTracker.AllTasks.Where(i => i.IsReady))
             {
-                if (planningTask.Task.WorldTaskData.Cost > 0)
-                    GangManager.Wallet.AcceptMoney(-planningTask.Task.WorldTaskData.Cost);
+                if (planningTask.Task.Cost > 0)
+                    GangManager.Wallet.AcceptMoney(-planningTask.Task.Cost);
 
                 var plannedData = new PlannedTaskData
                 {
-                    CrewId = planningTask.Task.SelectedCrew.Id,
-                    WorldTaskData = planningTask.Task.WorldTaskData
+                    CrewId = planningTask.AssignedCrew.Id,
+                    WorldTaskData = planningTask.Task
                 };
                 executionData.PlannedTasks.Add(plannedData);
             }
