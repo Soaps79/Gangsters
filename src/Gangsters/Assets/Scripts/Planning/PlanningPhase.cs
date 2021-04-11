@@ -5,6 +5,7 @@ using Assets.Scripts.Execution;
 using Assets.Scripts.Planning.UI;
 using Assets.Scripts.World;
 using QGame;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -127,6 +128,9 @@ namespace Assets.Scripts.Planning
             var executionData = new ExecutionStartData();
             foreach (var planningTask in PlanningTasks.Where(i => i.Task.IsComplete))
             {
+                if (planningTask.Task.WorldTaskData.Cost > 0)
+                    GangManager.Wallet.AcceptMoney(-planningTask.Task.WorldTaskData.Cost);
+
                 var plannedData = new PlannedTaskData
                 {
                     CrewId = planningTask.Task.SelectedCrew.Id,

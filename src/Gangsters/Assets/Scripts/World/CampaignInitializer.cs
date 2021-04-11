@@ -32,7 +32,7 @@ namespace Assets.Scripts.World
 
             if (ServiceLocator.Get<ResultsManager>() == null)
             {
-                var resultsManager = new ResultsManager(gangManager, worldManager);
+                var resultsManager = new ResultsManager(gangManager.Wallet, worldManager);
                 ServiceLocator.Register<ResultsManager>(resultsManager);
             }
         }

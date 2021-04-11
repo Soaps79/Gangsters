@@ -35,7 +35,7 @@ namespace Assets.Scripts.Planning.UI
 
         private void UpdateMoney()
         {
-            MoneyText.text = $"${_planningPhase.GangManager.Money}";
+            MoneyText.text = $"${_planningPhase.GangManager.Wallet.AvailableMoney}";
         }
 
         private readonly WorldPropertyStatus[] _monitoredStatuses = 
