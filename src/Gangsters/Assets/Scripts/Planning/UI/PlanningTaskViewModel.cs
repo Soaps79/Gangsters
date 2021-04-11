@@ -28,7 +28,7 @@ namespace Assets.Scripts.Planning.UI
         {
             _assignableTask = assignableTask;
             _assignableTask.OnIsAssignableUpdated += UpdateReadyToggle;
-            _assignableTask.OnAvailableCrewUpdated += SetDropdownOptions;
+            _assignableTask.OnAvailableCrewsUpdated += SetDropdownOptions;
             
             TaskNameText.text = $"{_assignableTask.Task.DisplayName} : ${_assignableTask.Task.TaskOutcome.MoneyReward}";
             Dropdown.onValueChanged.AddListener(OnDropdownSelectionChanged);

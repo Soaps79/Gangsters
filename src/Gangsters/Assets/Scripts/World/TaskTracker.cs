@@ -1,41 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Planning;
 using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.World
 {
-    public class AssignableTask
-    {
-        public WorldTaskData Task { get; }
-
-        public List<Crew> AvailableCrews = new List<Crew>();
-        public Crew AssignedCrew;
-        
-        public bool IsAssignable;
-        public string UnassignableReason;
-
-        public Action OnAvailableCrewUpdated;
-        public Action OnAssignedCrewUpdated;
-        public Action OnIsAssignableUpdated;
-
-        public bool IsReady => IsAssignable && AssignedCrew != null;
-
-        public AssignableTask(WorldTaskData taskData)
-        {
-            Task = taskData;
-        }
-
-        public void SetCrew(Crew crew)
-        {
-            if (AssignedCrew == crew)
-                return;
-
-            AssignedCrew = crew;
-            OnAssignedCrewUpdated?.Invoke();
-        }
-    }
+    
 
     public class TaskTracker
     {
@@ -79,7 +49,7 @@ namespace Assets.Scripts.World
                     || availableCrews.Any(i => !assignableTask.AvailableCrews.Contains(i)))
                 {
                     assignableTask.AvailableCrews = availableCrews;
-                    assignableTask.OnAvailableCrewUpdated?.Invoke();
+                    assignableTask.OnAvailableCrewsUpdated?.Invoke();
                 }
 
                 var isAssignable = true;
@@ -96,13 +66,7 @@ namespace Assets.Scripts.World
                     reason += "No able crews. ";
                 }
 
-                assignableTask.IsAssignable = isAssignable;
-                assignableTask.UnassignableReason = reason;
-
-                if (isAssignable != originalAssignability)
-                {
-                    assignableTask.OnIsAssignableUpdated?.Invoke();
-                }
+                assignableTask.SetIsAssignable(isAssignable, reason);
             }
         }
 

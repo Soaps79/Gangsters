@@ -81,34 +81,19 @@ namespace Assets.Scripts.Planning
         private void CheckForTestCrews()
         {
             if (!UseTestLeaders) return;
-            
-            
+
             if(!GangManager.Crews.Any())
                 GangManager.Crews = GetTestCrews();
         }
 
         private void GenerateTasks()
         {
-            
             TaskTracker.GenerateTasks();
 
             if (UseTestTasks)
             {
                 // add to tracker
             }
-
-            //_availableWorldTasks.AddRange(WorldManager.GetAvailableTasks());
-
-            //PlanningTasks.Clear();
-            //foreach (var taskData in _availableWorldTasks)
-            //{
-            //    PlanningTasks.Add(new AssignableTask
-            //    {
-            //        Task = new PlanningTask(taskData), 
-            //        AvailableCrews = GangManager.GetAbleCrews(taskData.Requirements)
-            //    });
-            //}
-            //OnTaskListUpdate?.Invoke();
         }
 
         private List<Crew> GetTestCrews()
@@ -143,6 +128,7 @@ namespace Assets.Scripts.Planning
             GangManager.Wallet.ClearReservation();
         }
 
+        // Called from editor UI
         public void StartExecutionPhase()
         {
             PrepareForExecutionPhase();
