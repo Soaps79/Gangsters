@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Assets.Scripts.World;
-using QGame;
 using TMPro;
 using UIWidgets;
 using UnityEngine;
@@ -9,12 +7,12 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.Planning.UI
 {
-    
-
     public class PlanningTaskViewModel : ListViewItem, IViewData<AssignableTask>
     {
         public TMP_Dropdown Dropdown;
         public TMP_Text TaskNameText;
+        public TMP_Text ReasonText;
+
         private const string _emptySelectionText = "None";
         public Toggle ReadyToggle;
         private AssignableTask _assignableTask;
@@ -67,6 +65,7 @@ namespace Assets.Scripts.Planning.UI
         private void UpdateReadyToggle()
         {
             ReadyToggle.isOn = _assignableTask.IsReady;
+            ReasonText.text = _assignableTask.UnassignableReason;
         }
     }
 }

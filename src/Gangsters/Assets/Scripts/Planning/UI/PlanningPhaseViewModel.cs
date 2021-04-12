@@ -68,6 +68,7 @@ namespace Assets.Scripts.Planning.UI
             {
                 var viewModel = Instantiate(CrewPrefab, CrewListTransform, false);
                 viewModel.Initialize(crew);
+                viewModel.gameObject.SetActive(true);
             }
         }
 
