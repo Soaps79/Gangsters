@@ -12,6 +12,8 @@ namespace Assets.Scripts.Planning.UI
         public TMP_Dropdown Dropdown;
         public TMP_Text TaskNameText;
         public TMP_Text ReasonText;
+        public TMP_Text CostText;
+        public TMP_Text GainText;
 
         private const string _emptySelectionText = "None";
         public Toggle ReadyToggle;
@@ -28,7 +30,9 @@ namespace Assets.Scripts.Planning.UI
             _assignableTask.OnIsAssignableUpdated += UpdateReadyToggle;
             _assignableTask.OnAvailableCrewsUpdated += SetDropdownOptions;
             
-            TaskNameText.text = $"{_assignableTask.Task.DisplayName} : ${_assignableTask.Task.TaskOutcome.MoneyReward}";
+            TaskNameText.text = $"{_assignableTask.Task.DisplayName}";
+            CostText.text = $"Cost: ${assignableTask.Task.Cost}";
+            GainText.text = $"Gain: ${_assignableTask.Task.TaskOutcome.MoneyReward}";
             Dropdown.onValueChanged.AddListener(OnDropdownSelectionChanged);
             
             SetDropdownOptions();

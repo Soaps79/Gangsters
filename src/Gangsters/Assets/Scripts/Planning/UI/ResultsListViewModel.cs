@@ -21,6 +21,7 @@ namespace Assets.Scripts.Planning.UI
             {
                 var viewModel = Instantiate(ResultAcceptPrefab, ResultListParent, false);
                 viewModel.Initialize(result, resultsManager);
+                viewModel.gameObject.SetActive(true);
                 viewModel.OnComplete += () =>
                 {
                     if (!_resultsManager.HasResultsToBeProcessed)
