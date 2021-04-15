@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: att_charisma
   m_EditorClassIdentifier: 
   Name: Charisma
+  LargeIcon: {fileID: 21300000, guid: 524cf6e24b8bb694496cb104927b4201, type: 3}

@@ -6,5 +6,6 @@ namespace Assets.Scripts.World
     public class AttributeSO : ScriptableObject
     {
         public string Name;
+        public Sprite LargeIcon;
     }
 }

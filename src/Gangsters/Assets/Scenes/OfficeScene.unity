@@ -805,9 +805,9 @@ MonoBehaviour:
     DisplayName: Collect Protection
     Cost: 0
     Requirements:
-    - _attribute: {fileID: 11400000, guid: 8378dabc19102c947a9057a8512215fe, type: 2}
+    - Attribute: {fileID: 0}
       Value: 1
-    - _attribute: {fileID: 11400000, guid: 87effc6c3afd7de4b82e3e7d3fa84e61, type: 2}
+    - Attribute: {fileID: 0}
       Value: 1
     TaskOutcome:
       MoneyReward: 0
@@ -815,7 +815,7 @@ MonoBehaviour:
     DisplayName: Recruit Talent I
     Cost: 0
     Requirements:
-    - _attribute: {fileID: 11400000, guid: 0fb5fb1405b38a141a0e6e2af5267834, type: 2}
+    - Attribute: {fileID: 0}
       Value: 2
     TaskOutcome:
       MoneyReward: 0
@@ -823,9 +823,9 @@ MonoBehaviour:
     DisplayName: Recruit Talent II
     Cost: 0
     Requirements:
-    - _attribute: {fileID: 11400000, guid: 0fb5fb1405b38a141a0e6e2af5267834, type: 2}
+    - Attribute: {fileID: 0}
       Value: 3
-    - _attribute: {fileID: 11400000, guid: 87effc6c3afd7de4b82e3e7d3fa84e61, type: 2}
+    - Attribute: {fileID: 0}
       Value: 1
     TaskOutcome:
       MoneyReward: 0
@@ -833,9 +833,9 @@ MonoBehaviour:
     DisplayName: Extort Property
     Cost: 0
     Requirements:
-    - _attribute: {fileID: 11400000, guid: 0fb5fb1405b38a141a0e6e2af5267834, type: 2}
+    - Attribute: {fileID: 0}
       Value: 1
-    - _attribute: {fileID: 11400000, guid: 8378dabc19102c947a9057a8512215fe, type: 2}
+    - Attribute: {fileID: 0}
       Value: 3
     TaskOutcome:
       MoneyReward: 0

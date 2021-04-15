@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: att_speed
   m_EditorClassIdentifier: 
   Name: Speed
+  LargeIcon: {fileID: 21300000, guid: 6fed18924059bc84bbea62a80cb68b11, type: 3}

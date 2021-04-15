@@ -7,16 +7,16 @@ namespace Assets.Scripts.World
     {
         // allows name to be set from SO's in the editor
         [SerializeField]
-        private AttributeSO _attribute;
+        public AttributeSO Attribute;
 
         private string name;
 
-        public string Name => _attribute != null ? _attribute.Name : name;
+        public string Name => Attribute != null ? Attribute.Name : name;
         public int Value;
 
-        public AttributeValuePair(string name, int value)
+        public AttributeValuePair(AttributeSO attribute, int value)
         {
-            this.name = name;
+            Attribute = attribute;
             Value = value;
         }
     }

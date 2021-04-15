@@ -16,5 +16,5 @@ MonoBehaviour:
   PurchasePrice: 500
   ExtortionValue: 50
   ExtortionRequirements:
-  - _attribute: {fileID: 11400000, guid: 0fb5fb1405b38a141a0e6e2af5267834, type: 2}
+  - Attribute: {fileID: 11400000, guid: 8378dabc19102c947a9057a8512215fe, type: 2}
     Value: 1

@@ -5,26 +5,21 @@ namespace Assets.Scripts.World
 {
     public class AttributeContainer
     {
-        private readonly Dictionary<string, int> _attributes = new Dictionary<string, int>();
+        private readonly Dictionary<AttributeSO, int> _attributes = new Dictionary<AttributeSO, int>();
 
         public void AddValue(AttributeValuePair attributeValuePair)
         {
-            if (!_attributes.ContainsKey(attributeValuePair.Name))
+            if (!_attributes.ContainsKey(attributeValuePair.Attribute))
             {
-                _attributes.Add(attributeValuePair.Name, 0);
+                _attributes.Add(attributeValuePair.Attribute, 0);
             }
 
-            _attributes[attributeValuePair.Name] += attributeValuePair.Value;
-        }
-
-        public int GetValue(string name)
-        {
-            return _attributes.ContainsKey(name) ? _attributes[name] : 0;
+            _attributes[attributeValuePair.Attribute] += attributeValuePair.Value;
         }
 
         public bool MeetsRequirements(IEnumerable<AttributeValuePair> requirements)
         {
-            return requirements.All(i => _attributes.ContainsKey(i.Name) && _attributes[i.Name] >= i.Value);
+            return requirements.All(i => _attributes.ContainsKey(i.Attribute) && _attributes[i.Attribute] >= i.Value);
         }
 
         public List<AttributeValuePair> GetAll()

@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: att_muscle
   m_EditorClassIdentifier: 
   Name: Muscle
+  LargeIcon: {fileID: 21300000, guid: b2f0b4f03539ae24984d2e0abb184617, type: 3}
